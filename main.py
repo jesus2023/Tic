@@ -36,9 +36,11 @@ def admin():
 
         conn, cur = get_conn()
         cur=conn.cursor()
-        cur.execute("SELECT * FROM covid.admin WHERE user = '"+ user +"' AND password = '"+ pw +"' ;")
+        print(user,pw)
+        cur.execute("SELECT * FROM covid.Admins WHERE Usuario = Dari AND Contraseña = admin1;")
         myresult = cur.fetchall()
         cur.close()
+        print(myresult)
 
         if len(myresult) == 0:
             return "Entrada no exitosa" 
