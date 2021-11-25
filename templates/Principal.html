@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Covidlla</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/Style.css" />
+  </head>
+  <body>
+
+  <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
+    <div class="navbar-brand">
+      
+        <img src="/static/png/Logocovid.png"  width="200" height="30" style="margin-left: 10px;" >
+      
+      <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </div>
+    </div>
+  
+    <div id="navbarExample" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item has-text-weight-bold" href="{{ url_for('login') }}">
+          Admin
+        </a>
+        <a class="navbar-item has-text-weight-bold" href="{{ url_for('login') }}">
+            Médico
+        </a>
+        <a class="navbar-item has-text-weight-bold" href="{{ url_for('login') }}">
+            Ayudante
+        </a>
+    </div>
+  </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+// Get all "navbar-burger" elements
+const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Check if there are any navbar burgers
+if ($navbarBurgers.length > 0) {
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach( el => {
+    el.addEventListener('click', () => {
+
+      // Get the target from the "data-target" attribute
+      const target = el.dataset.target;
+      const $target = document.getElementById(target);
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+
+    });
+  });
+}
+
+});
+</script>
+  </body>
+</html>

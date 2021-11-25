@@ -1,57 +1,63 @@
-:root {
-    --bs-blue: #0d6efd;
-    --bs-indigo: #6610f2;
-    --bs-purple: #6f42c1;
-    --bs-pink: #d63384;
-    --bs-red: #dc3545;
-    --bs-orange: #fd7e14;
-    --bs-yellow: #ffc107;
-    --bs-green: #198754;
-    --bs-teal: #20c997;
-    --bs-cyan: #0dcaf0;
-    --bs-white: #fff;
-    --bs-gray: #6c757d;
-    --bs-gray-dark: #343a40;
-    --bs-primary: #0d6efd;
-    --bs-secondary: #6c757d;
-    --bs-success: #198754;
-    --bs-info: #0dcaf0;
-    --bs-warning: #ffc107;
-    --bs-danger: #dc3545;
-    --bs-light: #f8f9fa;
-    --bs-dark: #212529;
-  }
+html,
 body {
-    font-family: 'Poppins', sans-serif;
-}
-nav{
-    /*background-color: #6209DB;*/
-    background-color: #000000;
-}
-
-.btn-primary {
-    background-color: var(--bs-secondary);
-    border-color:var(--bs-secondary) ;
+    
+    font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
 }
 
-.btn-primary:hover {
-    background-color: var(--bs-light);
-    border-color:var(--bs-light) ;
-}
-.content {
-    max-width: 500px;
-}
-.content2 {
-    max-width: 400px;
-}
-
-table {
-    max-width: 400px;
- 
-}
-.table2 {
-    align-content: center;
+html {
+    
+  overflow-y: hidden !important;
+  background-image: url('/static/png/tecno-covid-960x720-1-1200x675.jpg') !important;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+  background-repeat: no-repeat;
 }
 
+.hero.is-success {
+  background: #f2f6fa;
+}
+.hero .nav,
+.hero.is-success .nav {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.box {
+  margin-top: 5rem;
+  background-color: rgb(230, 249, 255);
+}
+input {
+  font-weight: 300;
+}
+p {
+  font-weight: 700;
+}
+p.subtitle {
+  padding-top: 1rem;
+}
 
+a {
+  color: #fff;
+}
+
+a:hover {
+  color: #bababa;
+}
+
+.languages {
+  margin-top: 10px;
+}
+
+.footer-text {
+  font-weight: initial;
+}
+
+.text {
+    height: 640px;
+    overflow-y: scroll;
+}
 

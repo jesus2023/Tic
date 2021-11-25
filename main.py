@@ -18,15 +18,15 @@ def get_conn():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('Principal.html')
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('plogin.html')
 
 @app.route('/register')
 def register():
-    return render_template('helper.html')
+    return render_template('pregister.html')
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
@@ -45,11 +45,9 @@ def admin():
         if len(myresult) == 0:
             return "Entrada no exitosa" 
         else:
-           return render_template('register.html') #Redirige a la pagina del administrador --Sebastian
+           return render_template('pregister.html') #Redirige a la pagina del administrador --Sebastian
 
-@app.route('/bulma')
-def bulma():
-    return render_template('bulma.html')
+
 
         
 if __name__ == '__main__':
