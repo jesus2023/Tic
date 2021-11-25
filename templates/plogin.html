@@ -50,13 +50,25 @@
             <div class="box">
               <p class="subtitle is-4">Please login to proceed.</p>
               <br />
-                <form>
-
+              <!-- <form action="{{ url_for('admin') }}" method="post">
+                <label for="username">
+                  <i class="fas fa-user"></i>
+                </label>
+                <input type="text" name="username" placeholder="Username" id="username" required>
+                <label for="password">
+                  <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <div class="msg">{{ msg }}</div>
+                <input type="submit" value="Login">
+              </form>-->
+               
+                    <form action="{{ url_for('admin') }}" method="post">
                     <div class="field">
                     <p class="control has-icons-left has-icons-right">
-                        <input class="input is-medium" type="email" placeholder="User" /> <!-- Size and name-->
+                        <input class="input is-medium" type="text" name="username" placeholder="Username" id="username" required> 
                         <span class="icon is-medium is-left">
-                        <i class="fas fa-user"></i> <!-- Icon -->
+                        <i class="fas fa-user"></i> 
                         </span>
                         <span class="icon is-medium is-right">
                         <i class="fas fa-check"></i>
@@ -66,18 +78,18 @@
 
                     <div class="field">
                     <p class="control has-icons-left">
-                        <input class="input is-medium" type="password" placeholder="Password" />
+                        <input class="input is-medium" type="password" name="password" placeholder="Password" id="password" required>
                         <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                         </span>
                     </p>
                     </div>
+      
                     <p class="control">
-                        <a class="button is block is-info is-large is-fullwidth" href="{{ url_for('register') }}">
-                          <span>Login</span>
-                        </a>
+                      <div class="msg">{{ msg }}</div>
+                      <input type="submit" value="Login" class="button is block is-info is-large is-fullwidth">
                     </p><br />
-                       
+                  </form>
                        <!-- <button class="button is-block is-info is-large is-fullwidth">Login</button><br />-->
         
                      
@@ -92,9 +104,7 @@
                         <i class="fab fa-twitter fa-lg"></i>
                         </span>
                     </a>
-                    
                     </div>
-                </form>
             </div>
                 <!--
                 <div class="languages select is-small is-rounded">

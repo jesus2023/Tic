@@ -33,17 +33,18 @@ def admin():
     if request.method == 'POST':
         pw = request.form['password']
         user = request.form['username']
+        print(pw,user)
 
         conn, cur = get_conn()
         cur=conn.cursor()
         print(user,pw)
-        cur.execute("SELECT * FROM covid.Admins WHERE Usuario = Dari AND Contraseña = admin1;")
+        cur.execute("SELECT * FROM covid.Admins WHERE Usuario = '"+user+"' AND Contraseña = '"+pw+"';")
         myresult = cur.fetchall()
         cur.close()
         print(myresult)
 
         if len(myresult) == 0:
-            return "Entrada no exitosa" 
+            return render_template('plogin.html')
         else:
            return render_template('pregister.html') #Redirige a la pagina del administrador --Sebastian
 
