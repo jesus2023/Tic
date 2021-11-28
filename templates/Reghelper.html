@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro de casos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="Style3.css" />
+  </head>
+  <body>
+    
+            <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
+                <div class="navbar-brand">
+                    <img src="Logo2.png"  width="200" height="30" style="margin-left: 10px" >
+                
+                <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </div>
+                </div>
+            
+                <div id="navbarExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item has-text-weight-bold" href="Principal.html">
+                        Home
+                    </a>
+                    <a class="navbar-item has-text-weight-bold" href="Login.html">
+                    Admin
+                    </a>
+                    <a class="navbar-item has-text-weight-bold" href="Login.html">
+                        Médico
+                    </a>
+                    <a class="navbar-item has-text-weight-bold" href="Login.html">
+                        Ayudante
+                    </a>
+                </div>
+            </nav>
+
+      <section class="hero ">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+                <div class="column is-8 is-offset-2">
+                    <div class="box2">
+                        <p class="subtitle is-4 has-text-weight-bold">New patient questionnaire COVID-19.</p>
+              <br />
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Full Name</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control is-expanded has-icons-left">
+                                    <input class="input" type="text" placeholder="Name">
+                                    <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                    </p>
+                    
+                                </div>
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="Last name" />
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-user"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                       <!-- <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">ID</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field is-expanded">
+                                    <p class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="CC" />
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-address-card"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>-->
+                    
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">ID</label>
+                            </div>
+                            
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control has-icons-left">
+                                        <input class="input" type="text" placeholder="CC" />
+                                        <span class="icon is-small is-left">
+                                        <i class="fas fa-address-card"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="field-label is-normal">
+                                    <label class="label">Gender</label>
+                                </div>
+                                <div class="field is-narrow">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select>
+                                                <option></option>
+                                                <option>Female</option>
+                                                <option>Male</option>
+                                                <option>Another</option>
+                                            </select>
+                                        </div>
+                                       <span class="icon is-small is-left">
+                                        <i class="fas fa-venus-mars"></i>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="field-label is-normal">
+                                    <label class="label">Birth</label>
+                                </div>
+                                <div class="field is-narrow" >
+                                    <div class="control ">
+                                        <input type="date" id="start" name="trip-start" 
+                                        value="2021-11-27"
+                                        min="1920-01-01" max="2022-01-01">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Home Location</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field is-narrow">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select>
+                                                <option></option>
+                                                <option>Calle</option>
+                                                <option>Carrera</option>
+                                            </select>
+                                        </div>
+                                       <span class="icon is-small is-left">
+                                        <i class="fas fa-home"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    
+                                    <input class="input" type="text" placeholder="">
+                        
+                                </div>
+
+                                <div class="field is-narrow">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select>
+                                                <option></option>
+                                                <option>Calle</option>
+                                                <option>Carrera</option>
+                                            </select>
+                                        </div>
+                                       <span class="icon is-small is-left">
+                                        <i class="fas fa-road"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                
+                                        <input class="input" type="text" placeholder="" />
+                                </div>
+
+                                <div class="field">
+                                
+                                        <input class="input" type="text" placeholder="" />
+                                </div>
+                            
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                                <label class="label">Job Location</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field is-narrow">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select>
+                                                <option></option>
+                                                <option>Calle</option>
+                                                <option>Carrera</option>
+                                            </select>
+                                        </div>
+                                       <span class="icon is-small is-left">
+                                        <i class="fas fa-briefcase"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="field">
+                                    
+                                    <input class="input" type="text" placeholder="">
+                        
+                                </div>
+
+                                <div class="field is-narrow">
+                                    <div class="control has-icons-left">
+                                        <div class="select is-fullwidth">
+                                            <select>
+                                                <option></option>
+                                                <option>Calle</option>
+                                                <option>Carrera</option>
+                                            </select>
+                                        </div>
+                                       <span class="icon is-small is-left">
+                                        <i class="fas fa-road"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                
+                                        <input class="input" type="text" placeholder="" />
+                                </div>
+
+                                <div class="field">
+                                
+                                        <input class="input" type="text" placeholder="" />
+                                </div>
+                            
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label">
+                            <label class="label">Result</label>
+                            </div>
+                            <div class="field-body">
+                            <div class="field is-narrow">
+                                <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="member">
+                                    Positive
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="member">
+                                    Negative
+                                </label>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                        <label class="label">Result Date</label>
+                                </div>
+                            <div class="field-body">
+                                <div class="field is-narrow">
+                                        <div class="control has-icons-left">
+                                            <input type="date" id="start" name="trip-start" 
+                                             value="2021-11-27"
+                                             min="2019-01-01" max="2022-01-01">
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!--<div class="field is-horizontal">
+                            <div class="field-label is-normal">
+                            <label class="label">Subject</label>
+                            </div>
+                            <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                <input class="input" type="text" placeholder="e.g. Partnership opportunity">
+                                </div>
+                                <p class="help is-danger">
+                                This field is required
+                                </p>
+                            </div>
+                            </div>
+                        </div>-->
+                    
+                        <div class="field is-horizontal">
+                            <div class="field-label">
+                            <!-- Left empty for spacing -->
+                            </div>
+                            <div class="field-body">
+                                <div class="field is-centered">
+                                    <div class="control" >
+                                        <button class="button has-text-weight-bold has-text-white " style="background-color: #003399">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+                    <div class="hero-foot">
+                        <div class="container has-text-centered">
+                            <p class="footer-text">
+                                <a  style="color:black;">Designed<!--<i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>-->
+                                by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
+                            </p>
+                        </div>
+                    </div>
+    
+</section>
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+            
+            // Get all "navbar-burger" elements
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
+            
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+                el.addEventListener('click', () => {
+            
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+            
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            
+                });
+            });
+            }
+            
+            });
+            </script>
+   
+</body>
+</html>

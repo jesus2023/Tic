@@ -6,17 +6,17 @@ body {
   font-weight: 300;
 }
 
-html {
+ /*html {
     
   overflow-y: hidden !important;
-  background-image: url('/static/png/tecno-covid-960x720-1-1200x675.jpg') !important;
+  background-image: url('media/tecno-covid-960x720-1-1200x675.jpg') !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  
+  background-position: center;
   background-repeat: no-repeat;
-}
+}*/
 
 .hero.is-success {
   background: #f2f6fa;
@@ -30,6 +30,7 @@ html {
   margin-top: 5rem;
   background-color: rgb(230, 249, 255);
 }
+
 input {
   font-weight: 300;
 }
@@ -60,4 +61,3 @@ a:hover {
     height: 640px;
     overflow-y: scroll;
 }
-

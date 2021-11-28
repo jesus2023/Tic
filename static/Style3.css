@@ -1,0 +1,16 @@
+html,
+body {
+    
+    font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+.box2 {
+    margin-top: 5rem;
+    background-color: rgb(230, 249, 255);
+    border-radius: 10px;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+  }

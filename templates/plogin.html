@@ -18,7 +18,7 @@
   <body>
     <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
         <div class="navbar-brand">
-            <img src="/static/png/Logocovid.png"  width="200" height="30" style="margin-left: 10px" href="Principal.html" >
+            <img src="/static/png/Logo2.png"  width="200" height="30" style="margin-left: 10px" href="Principal.html" >
           
           <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
             <span aria-hidden="true"></span>
@@ -43,25 +43,13 @@
             </a>
         </div>
       </nav>
-    <section class="hero is-halfheight">
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <div class="column is-4 is-offset-4">
-            <div class="box">
-              <p class="subtitle is-4">Please login to proceed.</p>
-              <br />
-              <!-- <form action="{{ url_for('admin') }}" method="post">
-                <label for="username">
-                  <i class="fas fa-user"></i>
-                </label>
-                <input type="text" name="username" placeholder="Username" id="username" required>
-                <label for="password">
-                  <i class="fas fa-lock"></i>
-                </label>
-                <input type="password" name="password" placeholder="Password" id="password" required>
-                <div class="msg">{{ msg }}</div>
-                <input type="submit" value="Login">
-              </form>-->
+      <section class="hero is-halfheight">
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <div class="column is-4 is-offset-4">
+              <div class="box">
+                <p class="subtitle is-4">Please login to proceed.</p>
+                <br />
                
                     <form action="{{ url_for('admin') }}" method="post">
                     <div class="field">
@@ -89,6 +77,11 @@
                       <div class="msg">{{ msg }}</div>
                       <input type="submit" value="Login" class="button is block is-info is-large is-fullwidth">
                     </p><br />
+                    <p class="control">
+                      <a class="button has-text-weight-bold has-text-white is-large is-fullwidth" style="background-color: #003399" href="Register.html">
+                        <span>Login</span>
+                      </a>
+                  </p><br />
                   </form>
                        <!-- <button class="button is-block is-info is-large is-fullwidth">Login</button><br />-->
         
@@ -106,25 +99,17 @@
                     </a>
                     </div>
             </div>
-                <!--
-                <div class="languages select is-small is-rounded">
-                <select>
-                    <option selected>English</option>
-                    <option>French</option>
-                    <option>German</option>
-                    <option>Italian</option>
-                </select>
-                </div>-->
           </div>
         </div>
       </div>
       <div class="hero-foot">
         <div class="container has-text-centered">
-          <p class="footer-text">
-            <a  style="color: white;">Designed with <i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i> by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
-          </p>
+            <p class="footer-text">
+                <a  style="color:black;">Designed<!--<i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>-->
+                by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
+            </p>
         </div>
-      </div>
+     </div>
     </section>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
