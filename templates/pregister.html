@@ -119,11 +119,11 @@
                               <div class="field is-narrow">
                                   <div class="control">
                                   <label class="radio">
-                                      <input type="radio" name="member" id="medico" required>
+                                      <input type="radio" name="member" id="medico"  required onclick="rol_()">
                                       Médico
                                   </label>
                                   <label class="radio">
-                                      <input type="radio" name="member" id="ayudante" required>
+                                      <input type="radio" name="member" id="ayudante" required onclick="rol_()">
                                       Ayudante
                                   </label>
                                   </div>
@@ -220,27 +220,39 @@
 
     });
 
-    /*function selecioccnarRol(){
+    function rol_(){
+        
         var rol = 0;
         if(document.getElementById('medico').checked){
             rol = 2;
+            console.log(rol)
         }
         if(document.getElementById('ayudante').checked){
             rol = 1;
+            console.log(rol)
         }
-    }return(rol)*/
+    }
 
-    $(function() {
-        $("input[name=type]").change(function() {
-            $.getJSON("{{ url_for('background_process') }}", {
-                type: $('input[name="type"]:checked').val(),
-            }, function(data) {
-                $("#category").html(data.options);
-            });
-            return false;
-        });
-    });
+
+    // metodo de javascript, para hacer peticiones a una url
+    const httpH = new XMLHttpRequest() 
+    httpH.open('GET', "/admin/register?rol=" + rol)
+    httpH.onreadystatechange = function () {
+        if (httpH.readyState == 4 && httpH.status == 200) {
+            
+        
+        }
+        else {
+            //console.log("Ready state", httpH.readyState);
+            //console.log("Ready status", httpH.status);
+        }
+
+
+    }
     
+    httpH.send(null);
+
+   
     </script>
   </body>
 </html>

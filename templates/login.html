@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://aldi.github.io/bulma-login-template/" />
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/Style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
+        <div class="navbar-brand">
+            <img src="/static/png/Logo2.png"  width="200" height="30" style="margin-left: 10px" href="Principal.html" >
+          
+          <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </div>
+        </div>
+      
+        <div id="navbarExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item has-text-weight-bold" href="{{ url_for('index') }}">
+                Home
+              </a>
+            <a class="navbar-item has-text-weight-bold" href="{{ url_for('admin') }}">
+              Admin
+            </a>
+            <a class="navbar-item has-text-weight-bold" href="{{ url_for('medico') }}">
+                Médico
+            </a>
+            <a class="navbar-item has-text-weight-bold" href="{{ url_for('ayudante') }}">
+                Ayudante
+            </a>
+        </div>
+      </nav>
+    <section class="hero is-halfheight">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="column is-4 is-offset-4">
+            <div class="box">
+              <p class="subtitle is-4">Please login to proceed.</p>
+              <br />
+              <!-- <form action="{{ url_for('admin') }}" method="post">
+                <label for="username">
+                  <i class="fas fa-user"></i>
+                </label>
+                <input type="text" name="username" placeholder="Username" id="username" required>
+                <label for="password">
+                  <i class="fas fa-lock"></i>
+                </label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <div class="msg">{{ msg }}</div>
+                <input type="submit" value="Login">
+              </form>-->
+               
+                    <form action="{{ url_for('auth.login_') }}" method="post">
+                    <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input is-medium" type="text" name="username" placeholder="Username" id="username" required> 
+                        <span class="icon is-medium is-left">
+                        <i class="fas fa-user"></i> 
+                        </span>
+                        <span class="icon is-medium is-right">
+                        <i class="fas fa-check"></i>
+                        </span>
+                    </p>
+                    </div>
+
+                    <div class="field">
+                    <p class="control has-icons-left">
+                        <input class="input is-medium" type="password" name="password" placeholder="Password" id="password" required>
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                        </span>
+                        
+                        <i class="fas fa-eye" id="pw"></i>
+                    </p>
+                    </div>
+      
+                    <p class="control">
+                      <div class="msg">{{ msg }}</div>
+                      <input type="submit" value="Login" class="button has-text-weight-bold has-text-white is-large is-fullwidth" style="background-color: #003399"">
+                    </p><br />
+                    
+                  </form>
+                       <!-- <button class="button is-block is-info is-large is-fullwidth">Login</button><br />-->
+        
+                     
+                    <div class="buttons is-centered" style="margin-bottom: 0;">
+                    <a class="button is-medium is-facebook" href="https://www.facebook.com/alcaldiabquilla" >
+                        <span class="icon">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                        </span>
+                    </a>
+                    <a class="button is-medium is-twitter" href="https://twitter.com/alcaldiabquilla">
+                        <span class="icon">
+                        <i class="fab fa-twitter fa-lg"></i>
+                        </span>
+                    </a>
+                    </div>
+            </div>
+                <!--
+                <div class="languages select is-small is-rounded">
+                <select>
+                    <option selected>English</option>
+                    <option>French</option>
+                    <option>German</option>
+                    <option>Italian</option>
+                </select>
+                </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <div class="container has-text-centered">
+            <p class="footer-text">
+                <a  style="color:black;">Designed<!--<i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>-->
+                by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
+            </p>
+        </div>
+     </div>
+    </section>
+
+    
+    <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+    
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+    
+      // Add a click event on each of them
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+    
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+    
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+    
+        });
+      });
+    }
+    
+    });
+    </script>
+  </body>
+</html>
