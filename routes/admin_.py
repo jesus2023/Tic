@@ -16,8 +16,8 @@ def get_conn():
         g.cur=g.conn.cursor()
     return g.conn, g.cur
 
-@admin_.route('/administrador/signup', methods=['POST', 'GET'])
-def signup_():
+@admin_.route('/administrador/register', methods=['POST', 'GET'])
+def register_():
     
     if session['rol'] == 'Administrador':
         if request.method == 'POST':
@@ -49,7 +49,7 @@ def signup_():
                 print(p)
                 print(check_password_hash(p, request.form['password']))
 
-                return redirect(url_for('admin_.signup_'))
+                return redirect(url_for('admin_.register_'))
         else:
             return render_template("pregister.html")
     else:

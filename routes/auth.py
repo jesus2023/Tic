@@ -34,18 +34,15 @@ def login_():
             pw=myresult[0][0]
             rol=myresult[0][1]
         #check_password_hash(pw, request.form['password'])
-        print(pw)
-        print(request.form['password'])
-        print(username, check_password_hash(pw, request.form['password']))
-
+        
         # check if user exists and password is correct
-        if username and request.form['password']==pw:
+        if username and check_password_hash(pw, request.form['password']):
             print("entró")
 
             session['rol'] = rol
             
             if rol == 'Administrador':
-                return redirect(url_for('admin_.signup_'))
+                return redirect(url_for('admin_.register_'))
 
             elif rol == 'Medico':
                 return redirect(url_for('medico.map'))

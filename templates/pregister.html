@@ -52,7 +52,7 @@
               <div class="box">
                 <p class="subtitle is-4">Please enter the data.</p>
                 <br />
-                <form action="{{ url_for('admin_.signup_')}}" method="POST" autocomplete="off">
+                <form action="{{ url_for('admin_.register_')}}" method="POST" autocomplete="off">
                       <div class="field is-horizontal">
                           <div class="field-label is-normal">
                               <label class="label"> Name</label>
@@ -118,10 +118,6 @@
                                       <input type="radio" id="rol" name="rol" value="1" required >
                                       Ayudante
                                   </label>
-                                  <label class="radio">
-                                    <input type="radio" id="rol" name="rol" value="3" required >
-                                    Administrador
-                                </label>
                                   </div>
                               </div>
                               </div>
