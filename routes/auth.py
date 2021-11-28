@@ -18,10 +18,10 @@ def get_conn():
 
 @auth.route('/login_', methods=['POST', 'GET'])
 def login_():
-    print("entra")
+    
 
     if request.method == 'POST':
-        print("entra")
+       
         username=request.form['username']
         conn, cur = get_conn()
         cur=conn.cursor()
@@ -29,33 +29,39 @@ def login_():
         cur.execute("SELECT contraseña, nmrol FROM covid.usuarios, covid.rol WHERE Usuario = '"+username+"' AND rol.idrol = usuarios.rol;")        
         myresult = cur.fetchall()
         cur.close()
-        pw=myresult[0]
-        rol=myresult[1]
-        print(pw,username)
+        pw="0"
+        if myresult:
+            pw=myresult[0][0]
+            rol=myresult[0][1]
         #check_password_hash(pw, request.form['password'])
+        print(pw)
+        print(request.form['password'])
+        print(username, check_password_hash(pw, request.form['password']))
 
         # check if user exists and password is correct
         if username and request.form['password']==pw:
+            print("entró")
+
             session['rol'] = rol
             
-            if rol == 'administrador':
-                return redirect(url_for('admin.signup'))
+            if rol == 'Administrador':
+                return redirect(url_for('admin_.signup_'))
 
-            elif rol == 'medico':
+            elif rol == 'Medico':
                 return redirect(url_for('medico.map'))
 
-            elif rol == 'ayudante':
+            elif rol == 'Ayudante':
                 return redirect(url_for('user.register'))
 
             else:
-                return redirect(url_for('auth.login'))
+                return redirect(url_for('auth.login_'))
         else:
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login_'))
     else:
         return render_template("login.html")
 
 @auth.route('/logout')
 @auth.route('/<rol>/logout')
-def logout(rol_):
+def logout(rol):
     session.pop('username', None)
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login_'))

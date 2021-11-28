@@ -1,9 +1,9 @@
 from flask import Blueprint
-from flask import render_template, request, redirect, url_for, flash, session, g
+from flask import render_template, request, redirect, url_for, flash, session,g
 import pymysql, os
 from werkzeug.security import generate_password_hash, check_password_hash
 
-admin = Blueprint('admin', __name__)
+admin_ = Blueprint('admin_', __name__)
 
 def get_conn():
     if "conn" not in g:
@@ -16,28 +16,40 @@ def get_conn():
         g.cur=g.conn.cursor()
     return g.conn, g.cur
 
-@admin.route('/administrador/signup', methods=['POST', 'GET'])
-def signup():
-    if session['rol'] == 'administrador':
+@admin_.route('/administrador/signup', methods=['POST', 'GET'])
+def signup_():
+    
+    if session['rol'] == 'Administrador':
         if request.method == 'POST':
-            username=request.form['username']
+            
+            username=request.form['user']
+            name = request.form['name']
+            lname = request.form['lname']
+            cc = request.form['cc']
+            pw = request.form['password']
+            rol = request.form['rol']
             conn, cur = get_conn()
             cur=conn.cursor()
-            
+
             cur.execute("SELECT usuario FROM covid.usuarios WHERE Usuario = '"+username+"';")        
             users = cur.fetchall() # get user from database 
             cur.close()
 
             if users:  # check if user exists
                 flash("Username already taken")
-                return redirect(url_for('auth.login'))
+                print("Ya existe ", users)
+                return redirect(url_for('auth.login_'))
             else:
                 conn, cur = get_conn()
                 cur=conn.cursor()
-                cur.execute(f"INSERT INTO usuario (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (request.form['cc'], request.form['name'], request.form['lname'], request.form['rol'], request.form['username'], generate_password_hash(request.form['password'])))
+                cur.execute(f"INSERT INTO covid.usuarios (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (cc, name, lname, rol, username, generate_password_hash(pw)))
                 conn.commit() 
-                
-                return redirect(url_for('admin.signup'))
+                flash("Username succesfully added")
+                p=generate_password_hash(pw)
+                print(p)
+                print(check_password_hash(p, request.form['password']))
+
+                return redirect(url_for('admin_.signup_'))
         else:
             return render_template("pregister.html")
     else:

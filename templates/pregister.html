@@ -52,16 +52,7 @@
               <div class="box">
                 <p class="subtitle is-4">Please enter the data.</p>
                 <br />
-                <form action="{{ url_for('admin_reg') }}" method="post">
-  
-                      <!--<div class="field">
-                      <p class="control has-icons-left has-icons-right">
-                          <input class="input is-medium" type="email" placeholder="Name"/> Size and name
-                          <span class="icon is-medium is-left">
-                          <i class="fas fa-user"></i> Icon 
-                          </span>
-                      </p>
-                      </div>-->
+                <form action="{{ url_for('admin_.signup_')}}" method="POST" autocomplete="off">
                       <div class="field is-horizontal">
                           <div class="field-label is-normal">
                               <label class="label"> Name</label>
@@ -86,7 +77,7 @@
                           <div class="field-body">
                               <div class="field">
                                   <p class="control is-expanded has-icons-left">
-                                  <input class="input is-medium" type="text" name="Lname" placeholder="" id="Lname" required>
+                                  <input class="input is-medium" type="text" name="lname" placeholder="" id="lname" required>
                                   <span class="icon is-small is-left">
                                       <i class="fas fa-user"></i>
                                   </span>
@@ -102,7 +93,7 @@
                           <div class="field-body">
                               <div class="field">
                                   <p class="control has-icons-left">
-                                      <input class="input is-medium" type="text" name="CC" placeholder="" id="CC" required>
+                                      <input class="input is-medium" type="text" name="cc" placeholder="" id="cc" required>
                                       <span class="icon is-small is-left">
                                       <i class="fas fa-address-card"></i>
                                       </span>
@@ -111,6 +102,7 @@
                           </div>
                       </div>
   
+                    
                           <div class="field is-horizontal">
                               <div class="field-label">
                               <label class="label">ROL</label>
@@ -119,13 +111,17 @@
                               <div class="field is-narrow">
                                   <div class="control">
                                   <label class="radio">
-                                      <input type="radio" name="member" id="medico"  required onclick="rol_()">
+                                      <input type="radio" id="rol" name="rol" value="2"  required >
                                       Médico
                                   </label>
                                   <label class="radio">
-                                      <input type="radio" name="member" id="ayudante" required onclick="rol_()">
+                                      <input type="radio" id="rol" name="rol" value="1" required >
                                       Ayudante
                                   </label>
+                                  <label class="radio">
+                                    <input type="radio" id="rol" name="rol" value="3" required >
+                                    Administrador
+                                </label>
                                   </div>
                               </div>
                               </div>
@@ -153,14 +149,15 @@
                               <div class="field-body">
                                   <div class="field">
                                       <p class="control has-icons-left">
-                                        <input class="input is-medium" type="text" name="password" placeholder="" id="password" required>
-                                          <span class="icon is-small is-left">
+                                        <input class="input is-medium" type="password" name="password" placeholder="Password" id="password" required>
+                                        <span class="icon is-small is-left">
                                           <i class="fas fa-lock"></i>
                                           </span>
                                       </p>
                                   </div>
                               </div>
                           </div>
+                          <i class="fas fa-eye" id="pw"></i>
   
                         <p class="control">
                         <div class="msg">{{ msg }}</div>
@@ -169,6 +166,7 @@
                           
                       
                 </form>
+                <div class="link">¿Estás registado?<a href="{{url_for('auth.logout', rol=session['rol'])}}" style="color: #003399"> Cerrar Session</a></div>
               </div>
                   <!--
                   <div class="languages select is-small is-rounded">
@@ -192,6 +190,13 @@
         </div>
      </div>
     </section>
+
+    <script src="../static/js/password_hide.js"></script>
+    <script>
+        function delete_space() {
+            document.getElementById('username').value = document.getElementById('username').value.replace(/\s/g, '');
+        };
+    </script>
 
     <script>
             document.addEventListener('DOMContentLoaded', () => {

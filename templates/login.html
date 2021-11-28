@@ -62,8 +62,9 @@
                 <div class="msg">{{ msg }}</div>
                 <input type="submit" value="Login">
               </form>-->
-               
-                    <form action="{{ url_for('auth.login_') }}" method="post">
+              
+            
+                    <form action="{{ url_for('auth.login_') }}" method="post" autocomplete="off">
                     <div class="field">
                     <p class="control has-icons-left has-icons-right">
                         <input class="input is-medium" type="text" name="username" placeholder="Username" id="username" required> 
@@ -130,6 +131,13 @@
         </div>
      </div>
     </section>
+
+    <script src="../static/js/password_hide.js"></script>
+    <script>
+        function delete_space() {
+            document.getElementById('username').value = document.getElementById('username').value.replace(/\s/g, '');
+        };
+    </script>
 
     
     <script>

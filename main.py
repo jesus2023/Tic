@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, session, g
 import pymysql, os
 from routes.auth import auth
-from routes.admin import admin
+from routes.admin_ import admin_
 
 
 
 app = Flask(__name__)
+app.secret_key = str(os.urandom(256))
+
 
 
 def get_conn():
@@ -144,6 +146,9 @@ def ayudante():
 
 # routes blueprints
 app.register_blueprint(auth)
+#app.register_blueprint(medico)
+app.register_blueprint(admin_)
+#app.register_blueprint(user)
 
         
 if __name__ == '__main__':
