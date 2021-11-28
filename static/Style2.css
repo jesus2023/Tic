@@ -5,3 +5,13 @@ body {
   font-size: 14px;
   font-weight: 300;
 }
+html {
+    
+ 
+  background-image: url('/static/png/pacient_tech.jpg');
+ 
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

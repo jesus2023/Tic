@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Helper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/Style2.css" />
+  </head>
+  <body>
+<section class="hero">
+            <div class="hero-head">
+                <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
+                    <div class="navbar-brand">
+                    
+                        <img src="/static/png/Logo2.png"  width="200" height="30" style="margin-left: 10px;" >
+                    
+                        <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </div>
+                    </div>
+                
+                    <div id="navbarExample" class="navbar-menu">
+                        <div class="navbar-start">
+                            <a class="navbar-item has-text-weight-bold" href="Login.html">
+                            Admin
+                            </a>
+                            <a class="navbar-item has-text-weight-bold" href="Login.html">
+                                Médico
+                            </a>
+                            <a class="navbar-item has-text-weight-bold" href="Login.html">
+                                Ayudante
+                            </a>
+                        </div>
+                    </div>   
+                </nav>
+            </div>
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column">
+                            <form class="box">
+                                <div class="field">
+                                  <label class="label is-size-3">Registro</label>
+                                  <p>
+                                    Si usted desea registrar un nuevo caso de COVID-19 presione <b>Continuar</b>  para cargar
+                                    el formulario correspondiente.
+                                  </p>
+                                </div>
+                                <p class="control">
+                                    
+                                    <input type="submit" value="Continuar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
+                                  </p><br />
+                                
+                              </form>
+                        </div>
+                        <div class="column">
+                            <form class="box">
+                                <div class="field">
+                                  <label class="label is-size-3">Gestión</label>
+                                  <p>
+                                    Si usted desea gestionar la información de un caso de COVID-19 presione <b>Continuar</b> para cargar
+                                    las opciones correspondientes de acuerdo con el paciente que seleccione.
+                                  </p>
+                                </div>
+                                <p class="control">
+                                    
+                                    <input type="submit" value="Continuar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
+                                    
+                                  </p><br />
+                                
+                              </form>
+                        </div>
+                      </div>
+                </div>
+            </div>
+           <!--
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                  <p class="footer-text">
+                      <a  style="color:black;">Designed <i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>
+                      by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
+                  </p>
+              </div>
+           </div>
+     </section>-->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const $target = document.getElementById(target);
+
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        $target.classList.toggle('is-active');
+
+        });
+    });
+    }
+
+    });
+    </script>
+  </body>
+</html>
