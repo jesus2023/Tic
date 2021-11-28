@@ -42,10 +42,10 @@ def signup_():
             else:
                 conn, cur = get_conn()
                 cur=conn.cursor()
-                cur.execute(f"INSERT INTO covid.usuarios (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (cc, name, lname, rol, username, generate_password_hash(pw)))
+                p=generate_password_hash(pw)
+                cur.execute(f"INSERT INTO covid.usuarios (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (cc, name, lname, rol, username, p))
                 conn.commit() 
                 flash("Username succesfully added")
-                p=generate_password_hash(pw)
                 print(p)
                 print(check_password_hash(p, request.form['password']))
 
