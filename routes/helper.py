@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for, flash, session, g
 import pymysql, os
 from werkzeug.security import generate_password_hash, check_password_hash
 
-auth = Blueprint('auth', __name__)
+helper = Blueprint('helper', __name__)
 
 def get_conn():
     if "conn" not in g:
@@ -16,10 +16,12 @@ def get_conn():
         g.cur=g.conn.cursor()
     return g.conn, g.cur
 
-@auth.route('/login_', methods=['POST', 'GET'])
-def login_():
-    
+@helper.route('/ayudante/choice', methods=['POST', 'GET'])
+def choice():
+    return render_template("Helperchoice.html")
 
+@helper.route('/ayudante/register', methods=['POST', 'GET'])
+def register():
     if request.method == 'POST':
        
         username=request.form['username']
@@ -55,10 +57,50 @@ def login_():
         else:
             return redirect(url_for('auth.login_'))
     else:
-        return render_template("login.html")
+        return render_template("Reghelper.html")
 
-@auth.route('/logout')
-@auth.route('/<rol>/logout')
+
+@helper.route('/ayudante/manage', methods=['POST', 'GET'])
+def manage():
+    if request.method == 'POST':
+       
+        username=request.form['username']
+        conn, cur = get_conn()
+        cur=conn.cursor()
+        
+        cur.execute("SELECT contraseña, nmrol FROM covid.usuarios, covid.rol WHERE Usuario = '"+username+"' AND rol.idrol = usuarios.rol;")        
+        myresult = cur.fetchall()
+
+        cur.close()
+        pw="0"
+        if myresult:
+            pw=myresult[0][0]
+            rol=myresult[0][1]
+        #check_password_hash(pw, request.form['password'])
+        
+        # check if user exists and password is correct
+        if username and check_password_hash(pw, request.form['password']):
+
+            session['rol'] = rol
+            
+            if rol == 'Administrador':
+                return redirect(url_for('admin_.register_'))
+
+            elif rol == 'Medico':
+                return redirect(url_for('medico.map'))
+
+            elif rol == 'Ayudante':
+                return redirect(url_for('helper.choice'))
+
+            else:
+                return redirect(url_for('auth.login_'))
+        else:
+            return redirect(url_for('auth.login_'))
+    else:
+        return render_template("Reghelper.html")
+
+@helper.route('/logout')
+@helper.route('/<rol>/logout')
 def logout(rol):
     session.pop('username', None)
     return redirect(url_for('auth.login_'))

@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session, g
 import pymysql, os
 from routes.auth import auth
 from routes.admin_ import admin_
+from routes.helper import helper
+
 
 
 
@@ -35,9 +37,9 @@ def rol():
 def login():
     return render_template('plogin.html')"""
 
-@app.route('/register')
+"""@app.route('/register')
 def register():
-    return render_template('pregister.html')
+    return render_template('pregister.html')"""
 
 #--------------------------------Módulo de administrador-------------------------------------------------------    
 
@@ -148,6 +150,8 @@ def ayudante():
 app.register_blueprint(auth)
 #app.register_blueprint(medico)
 app.register_blueprint(admin_)
+app.register_blueprint(helper)
+
 #app.register_blueprint(user)
 
         

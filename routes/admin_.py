@@ -33,12 +33,14 @@ def register_():
 
             cur.execute("SELECT usuario FROM covid.usuarios WHERE Usuario = '"+username+"';")        
             users = cur.fetchall() # get user from database 
+            cur.execute("SELECT cedula FROM covid.usuarios WHERE Cedula = '"+cc+"';")        
+            id = cur.fetchall() # get user from database 
             cur.close()
 
             if users:  # check if user exists
                 flash("Username already taken")
                 print("Ya existe ", users)
-                return redirect(url_for('auth.login_'))
+                return redirect(url_for('admin_.register_'))
             else:
                 conn, cur = get_conn()
                 cur=conn.cursor()
@@ -46,8 +48,6 @@ def register_():
                 cur.execute(f"INSERT INTO covid.usuarios (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (cc, name, lname, rol, username, p))
                 conn.commit() 
                 flash("Username succesfully added")
-                print(p)
-                print(check_password_hash(p, request.form['password']))
 
                 return redirect(url_for('admin_.register_'))
         else:

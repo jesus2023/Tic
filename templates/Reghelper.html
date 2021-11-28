@@ -31,16 +31,17 @@
                     <a class="navbar-item has-text-weight-bold" href="Principal.html">
                         Home
                     </a>
-                    <a class="navbar-item has-text-weight-bold" href="Login.html">
-                    Admin
-                    </a>
-                    <a class="navbar-item has-text-weight-bold" href="Login.html">
-                        Médico
-                    </a>
-                    <a class="navbar-item has-text-weight-bold" href="Login.html">
-                        Ayudante
-                    </a>
                 </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                      <div class="buttons">
+                        <a class="button is-primary"  href="{{url_for('auth.logout', rol=session['rol'])}}" style="background-color: #003399">
+                          Log out
+                        </a>
+                      </div>
+                    </div>
+                  </div>
             </nav>
 
       <section class="hero ">

@@ -32,16 +32,18 @@
             <a class="navbar-item has-text-weight-bold" href="{{ url_for('index') }}">
                 Home
               </a>
-            <a class="navbar-item has-text-weight-bold" href="{{ url_for('admin') }}">
-              Admin
-            </a>
-            <a class="navbar-item has-text-weight-bold" href="{{ url_for('medico') }}">
-                Médico
-            </a>
-            <a class="navbar-item has-text-weight-bold" href="{{ url_for('ayudante') }}">
-                Ayudante
-            </a>
         </div>
+        <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary"  href="{{url_for('auth.logout', rol=session['rol'])}}" style="background-color: #003399">
+                  Log out
+                </a>
+              </div>
+            </div>
+          </div>
+
+
       </nav>
 
 
@@ -157,12 +159,12 @@
   
                         <p class="control">
                         <div class="msg">{{ msg }}</div>
-                        <input type="submit" value="Register" class="button has-text-weight-bold has-text-white is-large is-fullwidth" style="background-color: #003399" onclick="selecciocnarRol()">
+                        <input type="submit" value="Register" class="button has-text-weight-bold has-text-white is-large is-fullwidth" style="background-color: #003399">
                         </p><br />
                           
                       
                 </form>
-                <div class="link">¿Estás registado?<a href="{{url_for('auth.logout', rol=session['rol'])}}" style="color: #003399"> Cerrar Session</a></div>
+                <div class="link">¿Estás registado?<a href="{{url_for('auth.logout', rol=session['rol'])}}" style="color: #003399"> Log out</a></div>
               </div>
                   <!--
                   <div class="languages select is-small is-rounded">

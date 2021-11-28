@@ -30,24 +30,28 @@
                 
                     <div id="navbarExample" class="navbar-menu">
                         <div class="navbar-start">
-                            <a class="navbar-item has-text-weight-bold" href="Login.html">
-                            Admin
-                            </a>
-                            <a class="navbar-item has-text-weight-bold" href="Login.html">
-                                Médico
-                            </a>
-                            <a class="navbar-item has-text-weight-bold" href="Login.html">
-                                Ayudante
-                            </a>
+                          <a class="navbar-item has-text-weight-bold" href="{{ url_for('index') }}">
+                            Home
+                          </a>
                         </div>
                     </div>   
+
+                    <div class="navbar-end">
+                      <div class="navbar-item">
+                        <div class="buttons">
+                          <a class="button is-primary"  href="{{url_for('auth.logout', rol=session['rol'])}}" style="background-color: #003399">
+                            Log out
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                 </nav>
             </div>
             <div class="hero-body">
                 <div class="container">
                     <div class="columns">
                         <div class="column">
-                            <form class="box">
+                            <div class="box">
                                 <div class="field">
                                   <label class="label is-size-3">Registro</label>
                                   <p>
@@ -55,15 +59,16 @@
                                     el formulario correspondiente.
                                   </p>
                                 </div>
-                                <p class="control">
-                                    
-                                    <input type="submit" value="Continuar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
-                                  </p><br />
+                                <div class="buttons">
+                                  <a class="button has-text-weight-bold has-text-white is-medium "  href="{{url_for('helper.register')}}" style="background-color: #003399">
+                                    Continuar
+                                  </a>
+                                </div>
                                 
-                              </form>
+                                </div>
                         </div>
                         <div class="column">
-                            <form class="box">
+                            <div class="box">
                                 <div class="field">
                                   <label class="label is-size-3">Gestión</label>
                                   <p>
@@ -71,13 +76,13 @@
                                     las opciones correspondientes de acuerdo con el paciente que seleccione.
                                   </p>
                                 </div>
-                                <p class="control">
-                                    
-                                    <input type="submit" value="Continuar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
-                                    
-                                  </p><br />
+                                <div class="buttons">
+                                  <a class="button has-text-weight-bold has-text-white is-medium "  href="{{url_for('helper.manage')}}" style="background-color: #003399">
+                                    Continuar
+                                  </a>
+                                </div>
                                 
-                              </form>
+                                </div>
                         </div>
                       </div>
                 </div>
