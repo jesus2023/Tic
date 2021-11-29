@@ -110,6 +110,7 @@
                                 <thead >
                                   <tr>
                                     <th>Select</th>
+                                    <th>IdCaso</th>
                                     <th>Name</th>
                                     <th>Last Name</th>
                                     <th>ID</th>
@@ -121,30 +122,21 @@
                                     <th>Date Result</th>
                                   </tr>
                                 </thead>
-                                {% for row in id %}
+                                {% for row in myresult %}
                                 <tbody>
-                                  <tr>
-                                    <th><label class="checkbox">
-                                      <input type="checkbox" class="check" id="{{row}}" name="{{row}}">
-                                        Ok
-                                      </label>
-                                    </th>
-                                    {% for n in name %}
-                                    <td>{{n}}</td>
+                                  <th><label class="checkbox">
+                                    <input type="checkbox" class="check" id="{{row}}" name="{{row}}">
+                                    <label for="{{row}}"> ok </label>
+                                    </label>
+                                  </th>
+                                  
+                                    {% for cell in row %}
+                                    <td>{{cell}}</td>
                                     {% endfor %}
-                                    {% for Ln in Lname %}
-                                    <td>{{Ln}}</td>
                                     {% endfor %}
-                                    <td>{{id}}</td>
-                                    <td>{{gender}}</td>
-                                    <td>{{birth}}</td>
-                                    <td>{{add}}</td>
-                                    <td>{{jobadd}}</td>
-                                    <td>{{result}}</td>
-                                    <td>{{result_date}}</td>
-                                  </tr>
+                                
                                 </tbody>
-                                {% endfor %}
+                                
                               </table>
                             </div>
                             <p class="control">
