@@ -43,9 +43,19 @@
             </div>
           </div>
 
-
       </nav>
 
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <br>
+      <div class="notification is-warning">
+          <button class="delete" id="del"></button>
+               {{message}}
+      </div>
+      {% endfor  %}
+      {% endif %}
+      {% endwith %}
 
       <section class="hero is-halfheight">
         <div class="hero-body">
@@ -161,10 +171,13 @@
                         <div class="msg">{{ msg }}</div>
                         <input type="submit" value="Register" class="button has-text-weight-bold has-text-white is-large is-fullwidth" style="background-color: #003399">
                         </p><br />
+
+
+                        
                           
                       
                 </form>
-                <div class="link">¿Estás registado?<a href="{{url_for('auth.logout', rol=session['rol'])}}" style="color: #003399"> Log out</a></div>
+                <div class="link"><a href="{{url_for('auth.logout', rol=session['rol'])}}" style="color: #003399"> Log out</a></div>
               </div>
                   <!--
                   <div class="languages select is-small is-rounded">
@@ -223,38 +236,15 @@
 
     });
 
-    function rol_(){
-        
-        var rol = 0;
-        if(document.getElementById('medico').checked){
-            rol = 2;
-            console.log(rol)
-        }
-        if(document.getElementById('ayudante').checked){
-            rol = 1;
-            console.log(rol)
-        }
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+        const $notification = $delete.parentNode;
 
-
-    // metodo de javascript, para hacer peticiones a una url
-    const httpH = new XMLHttpRequest() 
-    httpH.open('GET', "/admin/register?rol=" + rol)
-    httpH.onreadystatechange = function () {
-        if (httpH.readyState == 4 && httpH.status == 200) {
-            
-        
-        }
-        else {
-            //console.log("Ready state", httpH.readyState);
-            //console.log("Ready status", httpH.status);
-        }
-
-
-    }
-    
-    httpH.send(null);
-
+        $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+        });
+    });
+    });
    
     </script>
   </body>

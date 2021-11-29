@@ -35,6 +35,19 @@
         </div>
 
       </nav>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <br>
+      <div class="notification is-warning">
+          <button class="delete" id="del"></button>
+               {{message}}
+      </div>
+      {% endfor  %}
+      {% endif %}
+      {% endwith %}
+
     <section class="hero is-halfheight">
       <div class="hero-body">
         <div class="container has-text-centered">
@@ -159,6 +172,16 @@
       });
     }
     
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+        const $notification = $delete.parentNode;
+
+        $delete.addEventListener('click', () => {
+        $notification.parentNode.removeChild($notification);
+        });
+    });
     });
     </script>
   </body>

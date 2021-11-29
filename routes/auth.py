@@ -53,6 +53,7 @@ def login_():
             else:
                 return redirect(url_for('auth.login_'))
         else:
+            flash("Username or password invalid")
             return redirect(url_for('auth.login_'))
     else:
         return render_template("login.html")

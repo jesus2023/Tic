@@ -28,7 +28,7 @@
             
                 <div id="navbarExample" class="navbar-menu">
                 <div class="navbar-start">
-                    <a class="navbar-item has-text-weight-bold" href="Principal.html">
+                    <a class="navbar-item has-text-weight-bold" href="{{ url_for('index') }}">
                         Home
                     </a>
                 </div>
@@ -46,11 +46,13 @@
 
       <section class="hero ">
         <div class="hero-body">
+        <form action="{{ url_for('helper.register')}}" method="POST" autocomplete="off">
+
           <div class="container has-text-centered">
                 <div class="column is-8 is-offset-2">
                     <div class="box2">
                         <p class="subtitle is-4 has-text-weight-bold">New patient questionnaire COVID-19.</p>
-              <br />
+                        <br />
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Full Name</label>
@@ -58,7 +60,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control is-expanded has-icons-left">
-                                    <input class="input" type="text" placeholder="Name">
+                                    <input class="input" type="text" placeholder="Name" name="name" id="name" required>
                                     <span class="icon is-small is-left">
                                         <i class="fas fa-user"></i>
                                     </span>
@@ -76,21 +78,6 @@
                             </div>
                         </div>
                     
-                       <!-- <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">ID</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field is-expanded">
-                                    <p class="control has-icons-left">
-                                        <input class="input" type="text" placeholder="CC" />
-                                        <span class="icon is-small is-left">
-                                        <i class="fas fa-address-card"></i>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>-->
                     
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
@@ -278,22 +265,7 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!--<div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                            <label class="label">Subject</label>
-                            </div>
-                            <div class="field-body">
-                            <div class="field">
-                                <div class="control">
-                                <input class="input" type="text" placeholder="e.g. Partnership opportunity">
-                                </div>
-                                <p class="help is-danger">
-                                This field is required
-                                </p>
-                            </div>
-                            </div>
-                        </div>-->
+                    
                     
                         <div class="field is-horizontal">
                             <div class="field-label">
@@ -312,6 +284,7 @@
                     </div>
                 </div>
             </div>
+        </form>
         </div>
     
 

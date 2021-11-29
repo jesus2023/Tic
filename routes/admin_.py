@@ -39,7 +39,9 @@ def register_():
 
             if users:  # check if user exists
                 flash("Username already taken")
-                print("Ya existe ", users)
+                return redirect(url_for('admin_.register_'))
+            elif id:
+                flash("Id already taken")
                 return redirect(url_for('admin_.register_'))
             else:
                 conn, cur = get_conn()
@@ -48,7 +50,6 @@ def register_():
                 cur.execute(f"INSERT INTO covid.usuarios (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (cc, name, lname, rol, username, p))
                 conn.commit() 
                 flash("Username succesfully added")
-
                 return redirect(url_for('admin_.register_'))
         else:
             return render_template("pregister.html")
