@@ -24,36 +24,49 @@ def choice():
 def register():
     if request.method == 'POST':
        
-        username=request.form['user']
         name = request.form['name']
-        lname = request.form['lname']
+        Lname = request.form['Lname']
         cc = request.form['cc']
-        pw = request.form['password']
-        rol = request.form['rol']
+        gender = request.form['gender']
+        birth = request.form['birth']
+        add = request.form['address']
+        jobadd = request.form['jobaddress']
+        result = request.form['result']
+        result_date = request.form['result_date']
+
+        print(name, Lname, cc, gender, birth, add, jobadd, result, result_date)
+
         conn, cur = get_conn()
         cur=conn.cursor()
 
-        cur.execute("SELECT usuario FROM covid.usuarios WHERE Usuario = '"+username+"';")        
-        users = cur.fetchall() # get user from database 
-        cur.execute("SELECT cedula FROM covid.usuarios WHERE Cedula = '"+cc+"';")        
-        id = cur.fetchall() # get user from database 
-        cur.close()
-
-        if users:  # check if user exists
-                flash("Username already taken")
-                return redirect(url_for('admin_.register_'))
-        elif id:
-            flash("Id already taken")
-            return redirect(url_for('admin_.register_'))
-        else:
-            conn, cur = get_conn()
-            cur=conn.cursor()
-            p=generate_password_hash(pw)
-            cur.execute(f"INSERT INTO covid.usuarios (cedula, nombre, apellido, rol, usuario, contraseña) VALUES (%s,%s,%s,%s,%s,%s)", (cc, name, lname, rol, username, p))
-            conn.commit() 
-            flash("Username succesfully added")
-            return redirect(url_for('admin_.register_'))
         
+        cur.execute("SELECT cedula FROM covid.registrar WHERE cedula = '"+cc+"';")        
+        id = cur.fetchall() # get user from database 
+        
+        if id:  # check if user exists
+            
+            cur.execute("SELECT * FROM covid.registrar WHERE cedula = '"+cc+"' AND nombre = '"+name+"' AND apellido = '"+Lname+"' AND sexo = '"+gender+"' AND nacimiento = '"+birth+"';")        
+            myresult = cur.fetchall() # get user from database 
+            print(myresult)
+            
+            if myresult:
+                
+                cur.execute(f"INSERT INTO covid.registrar (cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (cc, name, Lname, gender, birth, add, jobadd, result, result_date))
+                conn.commit() 
+                cur.close()
+                flash("Case succesfully added")
+                return redirect(url_for('helper.register'))
+
+            else:    
+                flash("User data does not match")
+                cur.close()
+                return redirect(url_for('helper.register'))
+        else: 
+            cur.execute(f"INSERT INTO covid.registrar (cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (cc, name, Lname, gender, birth, add, jobadd, result, result_date))
+            conn.commit() 
+            cur.close()
+            flash("Case succesfully added")
+            return redirect(url_for('helper.register'))           
     else:
         return render_template("Reghelper.html")
 

@@ -44,6 +44,18 @@
                   </div>
             </nav>
 
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <br>
+            <div class="notification is-warning">
+                <button class="delete" id="del"></button>
+                    {{message}}
+            </div>
+            {% endfor  %}
+            {% endif %}
+            {% endwith %}
+
       <section class="hero ">
         <div class="hero-body">
         <form action="{{ url_for('helper.register')}}" method="POST" autocomplete="off">
@@ -69,7 +81,7 @@
                                 </div>
                                 <div class="field">
                                     <p class="control has-icons-left">
-                                        <input class="input" type="text" placeholder="Last name" />
+                                        <input class="input" type="text" placeholder="Last name" name="Lname" id="Lname" required>
                                         <span class="icon is-small is-left">
                                         <i class="fas fa-user"></i>
                                         </span>
@@ -87,7 +99,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control has-icons-left">
-                                        <input class="input" type="text" placeholder="CC" />
+                                        <input class="input" type="text" placeholder="CC" name="cc" id="cc" required>
                                         <span class="icon is-small is-left">
                                         <i class="fas fa-address-card"></i>
                                         </span>
@@ -96,14 +108,15 @@
                                 <div class="field-label is-normal">
                                     <label class="label">Gender</label>
                                 </div>
+                               
                                 <div class="field is-narrow">
                                     <div class="control has-icons-left">
                                         <div class="select is-fullwidth">
-                                            <select>
-                                                <option></option>
-                                                <option>Female</option>
-                                                <option>Male</option>
-                                                <option>Another</option>
+                                            <select name="gender" required>
+                                                <option value=""></option>
+                                                <option value="1">Female</option>
+                                                <option value="2">Male</option>
+                                                <option value="3">Another</option>
                                             </select>
                                         </div>
                                        <span class="icon is-small is-left">
@@ -117,7 +130,7 @@
                                 </div>
                                 <div class="field is-narrow" >
                                     <div class="control ">
-                                        <input type="date" id="start" name="trip-start" 
+                                        <input type="date" id="birth" name="birth" 
                                         value="2021-11-27"
                                         min="1920-01-01" max="2022-01-01">
                                     </div>
@@ -130,13 +143,21 @@
                                 <label class="label">Home Location</label>
                             </div>
                             <div class="field-body">
+                                <div class="field">
+                                    
+                                    <input class="input" type="text" placeholder="" name="address" id="address" required>
+                        
+                                </div>
+                                <!-- <div class="field-label is-normal">
+                                    <label class="label">City</label>
+                                </div>
                                 <div class="field is-narrow">
                                     <div class="control has-icons-left">
                                         <div class="select is-fullwidth">
-                                            <select>
-                                                <option></option>
-                                                <option>Calle</option>
-                                                <option>Carrera</option>
+                                            <select name="city" required>
+                                                <option value="bq">Barranquilla</option>
+                                                <option value="">Soledad</option>
+                                                <option value="carrera">Soledad</option>
                                             </select>
                                         </div>
                                        <span class="icon is-small is-left">
@@ -174,7 +195,8 @@
                                 
                                         <input class="input" type="text" placeholder="" />
                                 </div>
-                            
+                              -->
+                               
                             </div>
                         </div>
 
@@ -183,6 +205,12 @@
                                 <label class="label">Job Location</label>
                             </div>
                             <div class="field-body">
+                                <div class="field">
+                                    
+                                    <input class="input" type="text" placeholder="" name="jobaddress" id="jobaddress" required>
+                        
+                                </div>
+                                <!-- 
                                 <div class="field is-narrow">
                                     <div class="control has-icons-left">
                                         <div class="select is-fullwidth">
@@ -227,7 +255,7 @@
                                 
                                         <input class="input" type="text" placeholder="" />
                                 </div>
-                            
+                                -->
                             </div>
                         </div>
 
@@ -239,11 +267,12 @@
                             <div class="field is-narrow">
                                 <div class="control">
                                 <label class="radio">
-                                    <input type="radio" name="member">
+                                    <input type="radio" id="result" name="result" value="1"  required >
+                            
                                     Positive
                                 </label>
                                 <label class="radio">
-                                    <input type="radio" name="member">
+                                    <input type="radio" id="result" name="result" value="2"  required >
                                     Negative
                                 </label>
                                 </div>
@@ -258,7 +287,7 @@
                             <div class="field-body">
                                 <div class="field is-narrow">
                                         <div class="control has-icons-left">
-                                            <input type="date" id="start" name="trip-start" 
+                                            <input type="date" id="result_date" name="result_date" 
                                              value="2021-11-27"
                                              min="2019-01-01" max="2022-01-01">
                                         </div>
@@ -298,33 +327,6 @@
                     </div>
     
 </section>
-            <script>
-                document.addEventListener('DOMContentLoaded', () => {
-            
-            // Get all "navbar-burger" elements
-            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-            
-            // Check if there are any navbar burgers
-            if ($navbarBurgers.length > 0) {
-            
-            // Add a click event on each of them
-            $navbarBurgers.forEach( el => {
-                el.addEventListener('click', () => {
-            
-                // Get the target from the "data-target" attribute
-                const target = el.dataset.target;
-                const $target = document.getElementById(target);
-            
-                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-                el.classList.toggle('is-active');
-                $target.classList.toggle('is-active');
-            
-                });
-            });
-            }
-            
-            });
-            </script>
-   
+<script src="../static/js/delete.js"></script>   
 </body>
 </html>
