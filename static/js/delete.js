@@ -1,3 +1,33 @@
+a=document.querySelectorAll('.check')
+var check = []
+
+
+for (var j = 1; j<a.length; j++){
+    check.push(a[j])
+    j=j+1;
+}
+let Checked = null;
+//The class name can vary
+for (let CheckBox of check){
+    
+	CheckBox.onclick = function(){
+  	if(Checked!=null){
+      Checked.checked = false;
+      Checked = CheckBox;
+    }
+    Checked = CheckBox;
+    var search=(CheckBox.getAttribute("id"))
+    var a =search.split(",")[3]
+    document.getElementById("cedula").value = a.split(" ")[1];
+    if(Checked.checked == false){
+        document.getElementById("cedula").value =null;
+    }
+
+  }
+}
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
             
     // Get all "navbar-burger" elements
@@ -24,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     });
 
+    
+
 
 document.addEventListener('DOMContentLoaded', () => {
     (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
@@ -35,14 +67,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     });
 
-let Checked = null;
-//The class name can vary
-for (let CheckBox of document.getElementsByClassName('only-one')){
-	CheckBox.onclick = function(){
-  	if(Checked!=null){
-      Checked.checked = false;
-      Checked = CheckBox;
-    }
-    Checked = CheckBox;
-  }
-}

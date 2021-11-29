@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="column">
-                        <form class="box">
+                        <div class="box">
                             <div class="field">
                               <label class="label is-size-3">Datos del caso</label>
                               <table class="table">
@@ -124,10 +124,9 @@
                                 </thead>
                                 {% for row in myresult %}
                                 <tbody>
-                                  <th><label class="only-one">
+                                  <th class="check">
                                     <input type="checkbox" class="check" id="{{row}}" name="{{row}}">
                                     <label for="{{row}}"> ok </label>
-                                    </label>
                                   </th>
                                   
                                     {% for cell in row %}
@@ -139,13 +138,17 @@
                                 
                               </table>
                             </div>
+
                             <p class="control">
-                                
+                              <form action="{{ url_for('helper.manage_add')}}" method="POST" autocomplete="off">
+                                <input type="hidden" id="select" name="select" value= "{{select}}" required>
+                                <input type="hidden" id="search" name="search" value= "{{search}}" required>
+                                <input type="hidden" id="cedula" name="cedula" required>
                                 <input type="submit" value="Gestionar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
-                                
+                              </form>
                               </p><br/>
                             
-                          </form>
+                        </div>
                     </div>
                   </div>
             </div>

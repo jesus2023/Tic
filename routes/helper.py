@@ -77,33 +77,53 @@ def manage():
     if request.method == 'POST':
        
         search=request.form['search']
+        print(search)
         select=request.form['select']
         conn, cur = get_conn()
         cur=conn.cursor()
-        print(search,select)
+        
 
         if select == "2":
             cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.nombre = '"+search+"';")        
             myresult = cur.fetchall()
             cur.close()
-            return render_template("Gesthelper.html", myresult=myresult)
-            
+            return render_template("Gesthelper.html", myresult=myresult, search=search, select=select)
+
         elif select == "3":
             cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+search+"';")        
             myresult = cur.fetchall()
             cur.close()
-            return render_template("Gesthelper.html", myresult=myresult)
+            return render_template("Gesthelper.html", myresult=myresult, search=search, select=select)
 
         elif select == "1":
             cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.idCaso = '"+search+"';")        
             myresult = cur.fetchall()
             cur.close()
-            return render_template("Gesthelper.html", myresult=myresult)
+            return render_template("Gesthelper.html", myresult=myresult, search=search, select=select)
 
         else:
             return render_template("Gesthelper.html")
     else:
         return render_template("Gesthelper.html")
+
+
+@helper.route('/ayudante/manage/add', methods=['POST', 'GET'])
+def manage_add():
+    if request.method == 'POST':
+       
+        cedula=request.form['cedula']
+        print(cedula)
+        if cedula:
+            return render_template("Gesthelper.html")
+        else:
+            search=request.form['search']
+            select=request.form['select']
+            print(search,select)
+            flash("Por favor elija un usuario antes de gestionar")
+            return redirect(url_for('helper.manage', search=search, select=select), code=307)
+    else:
+        return render_template("Gesthelper.html")
+        
 
 @helper.route('/logout')
 @helper.route('/<rol>/logout')
