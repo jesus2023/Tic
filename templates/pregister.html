@@ -62,7 +62,7 @@
           <div class="container has-text-centered">
             <div class="column is-6 is-offset-3">
               <div class="box">
-                <p class="subtitle is-4">Please enter the data.</p>
+                <p class="subtitle is-4"> <b>Please enter the data.</b></p>
                 <br />
                 <form action="{{ url_for('admin_.register_')}}" method="POST" autocomplete="off">
                       <div class="field is-horizontal">
@@ -155,17 +155,22 @@
                                   <label class="label">Password</label>
                               </div>
                               <div class="field-body">
-                                  <div class="field">
-                                      <p class="control has-icons-left">
+                                <div class="field ">
+                                    <p class="control has-icons-left">
                                         <input class="input is-medium" type="password" name="password" placeholder="Password" id="password" required>
                                         <span class="icon is-small is-left">
-                                          <i class="fas fa-lock"></i>
-                                          </span>
-                                      </p>
-                                  </div>
+                                        <i class="fas fa-lock"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="field">
+                                  <p class="control has-icons-right pt-3 ">
+                                          <i class="fas fa-eye" id="pw"></i>
+                                  </p>
+                                </div>   
                               </div>
                           </div>
-                          <i class="fas fa-eye" id="pw"></i>
+                         
   
                         <p class="control">
                         <div class="msg">{{ msg }}</div>
@@ -179,15 +184,7 @@
                 </form>
                 <div class="link"><a href="{{url_for('auth.logout', rol=session['rol'])}}" style="color: #003399"> Log out</a></div>
               </div>
-                  <!--
-                  <div class="languages select is-small is-rounded">
-                  <select>
-                      <option selected>English</option>
-                      <option>French</option>
-                      <option>German</option>
-                      <option>Italian</option>
-                  </select>
-                  </div>-->
+                 
             </div>
           </div>
         </div>

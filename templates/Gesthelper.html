@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href="https://aldi.github.io/bulma-login-template/" />
+    <title>Gestión de ayudante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/Style.css" />
+  </head>
+  <body>
+   
+        <div class="hero-head">
+            <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
+                <div class="navbar-brand">
+                  <img src="/static/png/Logo2.png"  width="200" height="30" style="margin-left: 10px" href="Principal.html" >
+          
+                
+                <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </div>
+                </div>
+            
+                <div id="navbarExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item has-text-weight-bold" href="{{ url_for('index') }}">
+                        Home
+                    </a>
+                </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary"  href="{{url_for('auth.logout', rol=session['rol'])}}" style="background-color: #003399">
+                        Log out
+                        </a>
+                    </div>
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <br>
+      <div class="notification is-warning">
+          <button class="delete" id="del"></button>
+               {{message}}
+      </div>
+      {% endfor  %}
+      {% endif %}
+      {% endwith %}
+
+    <section class="hero is-halfheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-3">
+                        <div class="box">
+                          <form action="{{ url_for('helper.manage')}}" method="POST" autocomplete="off">
+                            <div class="field">
+                              <label class="label is-size-3">Buscar caso</label>
+                              <p>
+                               Filtre su búsqueda: 
+                              </p>
+                            </div>
+                            <div class="control has-icons-left">
+                                <div class="select is-halfwidth">
+                                  <select name="select" required>
+                                        <option value=""></option>
+                                        <option value="1">Case ID</option>
+                                        <option value="2">Name</option>
+                                        <option value="3">ID (CC)</option>
+                                    </select>
+                                </div>
+                               <span class="icon is-small is-left">
+                                <i class="fas fa-id-card-alt"></i>
+                                </span>
+                            </div>
+                            <br>
+                            <div class="field">
+                                <p class="control has-icons-left">
+                                    <input class="input" type="text" placeholder="" name="search" id="search" required>
+                                    <span class="icon is-small is-left">
+                                    <i class="fas fa-search"></i>
+                                    </span>
+                                </p>
+                            </div>
+                            <p class="control"> 
+                                <input type="submit" value="Buscar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
+                              </p><br />
+                          </form>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <form class="box">
+                            <div class="field">
+                              <label class="label is-size-3">Datos del caso</label>
+                              <table class="table">
+                                <thead >
+                                  <tr>
+                                    <th>Select</th>
+                                    <th>Name</th>
+                                    <th>Last Name</th>
+                                    <th>ID</th>
+                                    <th>Gender</th>
+                                    <th>Birth</th>
+                                    <th>Home Location</th>
+                                    <th>Job Location</th>
+                                    <th>Result</th>
+                                    <th>Date Result</th>
+                                  </tr>
+                                </thead>
+                                {% for row in id %}
+                                <tbody>
+                                  <tr>
+                                    <th><label class="checkbox">
+                                      <input type="checkbox" class="check" id="{{row}}" name="{{row}}">
+                                        Ok
+                                      </label>
+                                    </th>
+                                    {% for n in name %}
+                                    <td>{{n}}</td>
+                                    {% endfor %}
+                                    {% for Ln in Lname %}
+                                    <td>{{Ln}}</td>
+                                    {% endfor %}
+                                    <td>{{id}}</td>
+                                    <td>{{gender}}</td>
+                                    <td>{{birth}}</td>
+                                    <td>{{add}}</td>
+                                    <td>{{jobadd}}</td>
+                                    <td>{{result}}</td>
+                                    <td>{{result_date}}</td>
+                                  </tr>
+                                </tbody>
+                                {% endfor %}
+                              </table>
+                            </div>
+                            <p class="control">
+                                
+                                <input type="submit" value="Gestionar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
+                                
+                              </p><br/>
+                            
+                          </form>
+                    </div>
+                  </div>
+            </div>
+        </div>
+      <div class="hero-foot">
+        <div class="container has-text-centered">
+            <p class="footer-text">
+                <a  style="color:black;">Designed<!--<i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>-->
+                by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
+            </p>
+        </div>
+     </div>
+    </section>
+
+  <script src="../static/js/password_hide.js"></script>
+    <script>
+                function delete_space() {
+                    document.getElementById('username').value = document.getElementById('username').value.replace(/\s/g, '');
+                };
+    </script>
+  <script src="../static/js/delete.js"></script>  
+        
+    
+  </body>
+</html>

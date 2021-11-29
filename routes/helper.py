@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import render_template, request, redirect, url_for, flash, session, g
 import pymysql, os
+from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 
 helper = Blueprint('helper', __name__)
@@ -75,40 +76,109 @@ def register():
 def manage():
     if request.method == 'POST':
        
-        username=request.form['username']
+        search=request.form['search']
+        select=request.form['select']
         conn, cur = get_conn()
         cur=conn.cursor()
-        
-        cur.execute("SELECT contraseña, nmrol FROM covid.usuarios, covid.rol WHERE Usuario = '"+username+"' AND rol.idrol = usuarios.rol;")        
-        myresult = cur.fetchall()
+        print(search,select)
 
-        cur.close()
-        pw="0"
-        if myresult:
-            pw=myresult[0][0]
-            rol=myresult[0][1]
-        #check_password_hash(pw, request.form['password'])
-        
-        # check if user exists and password is correct
-        if username and check_password_hash(pw, request.form['password']):
+        if select == "2":
+            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.nombre = '"+search+"';")        
+            myresult = cur.fetchall()
 
-            session['rol'] = rol
+            rows = len(myresult)
+            idCaso = []
+            name = []
+            Lname = []
+            id = []
+            gender = []
+            birth = []
+            add = []
+            jobadd = []
+            result = []
+            result_date = []
+
+            for row in range (rows):
+                print(rows)
+                idCaso.append (myresult[row][0])
+                name.append (myresult[row][1])
+                Lname.append (myresult[row][2])
+                id.append (myresult[row][3])
+                gender.append (myresult[row][4])
+                birth.append (date.strftime(myresult[row][5],'%b %d, %Y'))
+                add.append (myresult[row][6])
+                jobadd.append (myresult[row][7])
+                result.append (myresult[row][8])
+                result_date.append (date.strftime(myresult[row][9],'%b %d, %Y'))
+
+            cur.close()
+            return render_template("Gesthelper.html")
+        elif select == "3":
+            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+search+"';")        
+            myresult = cur.fetchall()
+         
+            rows = len(myresult)
+            idCaso = []
+            name = []
+            Lname = []
+            id = []
+            gender = []
+            birth = []
+            add = []
+            jobadd = []
+            result = []
+            result_date = []
+
+            for row in range (rows):
+                print(rows)
+                idCaso.append (myresult[row][0])
+                name.append (myresult[row][1])
+                Lname.append (myresult[row][2])
+                id.append (myresult[row][3])
+                gender.append (myresult[row][4])
+                birth.append (date.strftime(myresult[row][5],'%b %d, %Y'))
+                add.append (myresult[row][6])
+                jobadd.append (myresult[row][7])
+                result.append (myresult[row][8])
+                result_date.append (date.strftime(myresult[row][9],'%b %d, %Y'))
+
+            cur.close()
+            return render_template("Gesthelper.html", idCaso = idCaso, name = name, Lname = Lname, id = id, gender = gender, birth = birth, add = add, jobadd = jobadd, result = result, result_date = result_date)
+
+        elif select == "1":
+            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.idCaso = '"+search+"';")        
+            myresult = cur.fetchall()
             
-            if rol == 'Administrador':
-                return redirect(url_for('admin_.register_'))
+            rows = len(myresult)
+            idCaso = []
+            name = []
+            Lname = []
+            id = []
+            gender = []
+            birth = []
+            add = []
+            jobadd = []
+            result = []
+            result_date = []
 
-            elif rol == 'Medico':
-                return redirect(url_for('medico.map'))
-
-            elif rol == 'Ayudante':
-                return redirect(url_for('helper.choice'))
-
-            else:
-                return redirect(url_for('auth.login_'))
+            for row in range (rows):
+                print(rows)
+                idCaso.append (myresult[row][0])
+                name.append (myresult[row][1])
+                Lname.append (myresult[row][2])
+                id.append (myresult[row][3])
+                gender.append (myresult[row][4])
+                birth.append (date.strftime(myresult[row][5],'%b %d, %Y'))
+                add.append (myresult[row][6])
+                jobadd.append (myresult[row][7])
+                result.append (myresult[row][8])
+                result_date.append (date.strftime(myresult[row][9],'%b %d, %Y'))
+            cur.close()
+            return render_template("Gesthelper.html")
         else:
-            return redirect(url_for('auth.login_'))
+            return render_template("Gesthelper.html")
     else:
-        return render_template("Reghelper.html")
+        return render_template("Gesthelper.html")
 
 @helper.route('/logout')
 @helper.route('/<rol>/logout')

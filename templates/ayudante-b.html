@@ -1,12 +1,51 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestón de casos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="./static/css/style_.css">
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
-    <title>BUSCAR CASO</title>
+
+<body>
+    
+    <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
+        <div class="navbar-brand">
+            <img src="/static/png/Logo2.png"  width="200" height="30" style="margin-left: 10px" >
+        
+        <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </div>
+        </div>
+    
+        <div id="navbarExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item has-text-weight-bold" href="{{ url_for('index') }}">
+                Home
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary"  href="{{url_for('auth.logout', rol=session['rol'])}}" style="background-color: #003399">
+                  Log out
+                </a>
+              </div>
+            </div>
+          </div>
+    </nav>
+
     <style>
         .container {
             display: grid;
@@ -25,19 +64,31 @@
             padding: 0 10px;
         }
     </style>
-</head>
-
-<body>
-    {% include "nav-bar-ayudante.html" %}
+    
     <div class="container">
         <div class="wrapper">
             <section class="form login">
-                <form action="" method="POST" autocomplete="off">
+                <form action="{{ url_for('helper.manage')}}" method="POST" autocomplete="off">
                     <h2>Buscar caso</h2>
 
-                    <div class="field input">
-                        <label>Cedula</label>
-                        <input type="number" name="cedula" placeholder="numero cc" required>
+                    <div class="field is-narrow">
+                        <div class="control has-icons-left">
+                            <div class="select is-fullwidth">
+                                <select name="select" required>
+                                    <option value=""></option>
+                                    <option value="1">Name</option>
+                                    <option value="2">ID</option>
+                                    <option value="3">IDCase</option>
+                                </select>
+                            </div>
+                           <span class="icon is-small is-left">
+                            <i class="fas fa-venus-mars"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <input type="text" name="index" required>
                     </div>
 
                     <div class="field button">
