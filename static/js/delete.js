@@ -2,10 +2,12 @@ a=document.querySelectorAll('.check')
 var check = []
 
 
+
 for (var j = 1; j<a.length; j++){
     check.push(a[j])
     j=j+1;
 }
+
 let Checked = null;
 //The class name can vary
 for (let CheckBox of check){

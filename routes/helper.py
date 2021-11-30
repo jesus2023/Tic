@@ -118,7 +118,7 @@ def manage_add():
         else:
             search=request.form['search']
             select=request.form['select']
-            print(search,select)
+            
             flash("Por favor elija un usuario antes de gestionar")
             return redirect(url_for('helper.manage', search=search, select=select), code=307)
     else:
