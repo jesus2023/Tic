@@ -140,7 +140,7 @@
 
                         <div class="column"> 
                           <div class="box">
-                          <form action="{{ url_for('helper.manage')}}" method="POST" autocomplete="off">
+                        <form action="{{ url_for('helper.manage_addstate')}}" method="POST" autocomplete="off">
                         <div class="field">
                           <label class="label is-size-3">Actualizar estado</label>
                           <p>
@@ -152,7 +152,7 @@
                           
                         <div class="control has-icons-left">
                             <div class="select is-halfwidth">
-                                <select name="select" required>
+                                <select name="state" required>
                                     <option value=""></option>
                                     <option value="1">En Tratamiento Casa </option>
                                     <option value="2">En tratamiento Hospital</option>

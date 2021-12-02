@@ -78,7 +78,7 @@ def register():
 @helper.route('/ayudante/manage', methods=['POST', 'GET'])
 def manage():
     if request.method == 'POST':
-       
+        print("")
         search=request.form['search']
         print(search)
         select=request.form['select']
@@ -113,7 +113,6 @@ def manage():
 @helper.route('/ayudante/manage/add', methods=['POST', 'GET'])
 def manage_add():
     if request.method == 'POST':
-       
         cedula=request.form['cedula']
 
         conn, cur = get_conn()
@@ -122,6 +121,10 @@ def manage_add():
         print(cedula)
         cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+cedula+"';")        
         myresult = cur.fetchall()
+        cur.execute(" SELECT gest.fecha 'Fecha Nuevo Ingreso', est.nmestado 'Estado del paciente' FROM covid.registrar regis, covid.sexo sex, covid.resultado res, covid.gestion gest, covid.estado est WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado  AND regis.idCaso= gest.idcaso AND gest.estado= est.idestado AND gest.cedula='"+cedula+"' order by gest.fecha;")        
+        result = cur.fetchall()
+
+        print(result)
         cur.close()
         if cedula:
             return render_template("Helper_states.html", myresult=myresult)
