@@ -47,19 +47,19 @@
 
             </nav>
         </div>
-<!--
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      {% for message in messages %}
-      <br>
-      <div class="notification is-warning">
-          <button class="delete" id="del"></button>
-               {{message}}
-      </div>
-      {% endfor  %}
-      {% endif %}
-      {% endwith %}-->
 
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <br>
+        <div class="notification is-warning">
+            <button class="delete" id="del"></button>
+                 {{message}}
+        </div>
+        {% endfor  %}
+        {% endif %}
+        {% endwith %}
+        
     <section class="hero is-halfheight">
         <div class="hero-body">
             <div class="container">
@@ -113,8 +113,8 @@
                               <table class="table is is-halfwidth">
                                 <thead >
                                   <tr>
-                                    
-                                    <th>Fecha de Ingreso</th>
+                                    <th>Id caso</th>
+                                    <th>Fecha de Actualización</th>
                                     <th>Estado del paciente</th>
                                     
                                     
@@ -123,9 +123,12 @@
                                 
                                 <tbody>
                                   <tr>
-                                   <!-- <th></th>-->
-                                    <td>28-11-2021</td>
-                                    <td>Muerte</td>
+                                    {% for row in result %}
+                                    <tbody>
+                                        {% for cell in row %}
+                                        <td>{{cell}}</td>
+                                        {% endfor %}
+                                        {% endfor %}
                                    
                                   </tr>
                                   <tr>
@@ -165,10 +168,12 @@
                             <i class="fas fa-hospital-user"></i>
                             </span>
                         </div>
-                     
+                          <input type="hidden" id="select" name="cedula" value= "{{cedula}}" required>
+                          <input type="hidden" id="select" name="estado" value= "{{estado}}" required>
+
                             <div class="field is-narrow ml-4" >
                               <div class="control ">
-                                  <input type="date" id="start" name="trip-start" 
+                                  <input type="date" id="start" name="start" 
                                   value="2021-11-27"
                                   min="1920-01-01" max="2022-01-01">
                               </div>
@@ -199,14 +204,13 @@
         </div>
      </div>
     </section>
-
-            <script src="../static/js/password_hide.js"></script>
-            <script>
+    <script src="../static/js/password_hide.js"></script>
+    <script>
                 function delete_space() {
                     document.getElementById('username').value = document.getElementById('username').value.replace(/\s/g, '');
                 };
-            </script>
-            <script src="../static/js/delete.js"></script>  
+    </script>
+  <script src="../static/js/delete.js"></script>  
         
     
   </body>

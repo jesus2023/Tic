@@ -8,8 +8,6 @@ from os.path import join, dirname
 load_dotenv(join(dirname(__file__), '.env'))
 
 helper = Blueprint('helper', __name__)
-global cedula
-cedula = 1234
 
 def get_conn():
     if "conn" not in g:
@@ -81,6 +79,7 @@ def register():
 def manage():
     if request.method == 'POST':
         print("")
+
         search=request.form['search']
         print(search)
         select=request.form['select']
@@ -89,19 +88,19 @@ def manage():
         
 
         if select == "2":
-            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.nombre = '"+search+"';")        
+            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.nombre = '"+search+"' order by regis.fechaExam;")        
             myresult = cur.fetchall()
             cur.close()
             return render_template("Gesthelper.html", myresult=myresult, search=search, select=select)
 
         elif select == "3":
-            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+search+"';")        
+            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+search+"' order by regis.fechaExam;")        
             myresult = cur.fetchall()
             cur.close()
             return render_template("Gesthelper.html", myresult=myresult, search=search, select=select)
 
         elif select == "1":
-            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.idCaso = '"+search+"';")        
+            cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.idCaso = '"+search+"' order by regis.fechaExam;")        
             myresult = cur.fetchall()
             cur.close()
             return render_template("Gesthelper.html", myresult=myresult, search=search, select=select)
@@ -115,19 +114,22 @@ def manage():
 @helper.route('/ayudante/manage/add', methods=['POST', 'GET'])
 def manage_add():
     if request.method == 'POST':
-        cedula=request.form['cedula']
-
+        cedula=request.form['cedula']        
         conn, cur = get_conn()
         cur=conn.cursor()
-        cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+cedula+"';")        
+        cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+cedula+"' order by regis.fechaExam;")        
         myresult = cur.fetchall()
-        cur.execute(" SELECT gest.fecha 'Fecha Nuevo Ingreso', est.nmestado 'Estado del paciente' FROM covid.registrar regis, covid.sexo sex, covid.resultado res, covid.gestion gest, covid.estado est WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND gest.estado= est.idestado AND gest.cedula='"+cedula+"' order by gest.fecha;")        
+        cur.execute("SELECT regis.idcaso, gest.fecha 'Fecha Nuevo Ingreso', est.nmestado 'Estado del paciente' FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and regis.cedula='"+cedula+"' and gest.idcaso=regis.idcaso  order by gest.fecha;")        
         result = cur.fetchall()
-
         print(result)
+
+        if result:
+            estado=result[len(result)-1][2]
+        else:
+            estado="NA"
         cur.close()
         if cedula:
-            return render_template("Helper_states.html", myresult=myresult)
+            return render_template("Helper_states.html",estado=estado, myresult=myresult, result=result, cedula=cedula)
         else:
             search=request.form['search']
             select=request.form['select']
@@ -141,13 +143,29 @@ def manage_add():
 @helper.route('/ayudante/manage/addstate', methods=['POST', 'GET'])
 def manage_addstate():
     if request.method == 'POST':
-        state=request.form['select']
-        conn, cur = get_conn()
-        cur=conn.cursor()        
-        conn.commit() 
-        cur.close()
+        estado=request.form['estado']
+        state=request.form['state']
+        cedula=request.form['cedula']
+        start=request.form['start']
 
-        return render_template("Gesthelper.html")
+        if estado == 'Muerte':
+            flash("No es posible actualizar estado, la persona ha fallecido")
+            return redirect(url_for('helper.manage_add', cedula=cedula), code=307)
+        else:
+
+            conn, cur = get_conn()
+            cur=conn.cursor()   
+
+            cur.execute("SELECT regis.idcaso, nmresultado FROM covid.registrar regis, covid.resultado res WHERE regis.fechaExam = (select max(regis.fechaExam) from covid.registrar regis where regis.cedula = '"+cedula+"') AND regis.cedula = '"+cedula+"' and regis.resultado = res.idresultado;") 
+            myresult = cur.fetchall()
+            
+            if myresult[0][1]=="Positivo":
+                cur.execute(f"INSERT INTO covid.gestion (cedula, estado, idcaso, fecha) VALUES (%s,%s,%s,%s)", (cedula, state, myresult[0][0], start)) 
+                conn.commit() 
+                cur.close()
+
+
+        return redirect(url_for('helper.manage_add', cedula=cedula), code=307)
     else:
         return render_template("Gesthelper.html")
         
