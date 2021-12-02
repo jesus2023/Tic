@@ -5,9 +5,36 @@ from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 from os.path import join, dirname
+import googlemaps
+from datetime import datetime
+import requests
+from urllib.parse import urlencode
+
+
 load_dotenv(join(dirname(__file__), '.env'))
 
 helper = Blueprint('helper', __name__)
+
+api=os.getenv('API')
+
+
+def extract_lat_lng(address_or_postalcode, data_type = 'json'):
+    api_key = 'AIzaSyAgSr51cfNOVMywc23zTdnJhB2OrMhivCw'
+    endpoint = f"https://maps.googleapis.com/maps/api/geocode/{data_type}"
+    params = {"address": address_or_postalcode, "key": api_key}
+    url_params = urlencode(params)
+    url = f"{endpoint}?{url_params}"
+    r = requests.get(url)
+    if r.status_code not in range(200, 299): 
+        return {}
+    latlng = {}
+    try:
+        latlng = r.json()['results'][0]['geometry']['location']
+    except:
+        pass
+    lat = latlng.get("lat")
+    lon = latlng.get("lng")
+    return lat, lon
 
 def get_conn():
     if "conn" not in g:
@@ -37,13 +64,18 @@ def register():
         jobadd = request.form['jobaddress']
         result = request.form['result']
         result_date = request.form['result_date']
-
-        print(name, Lname, cc, gender, birth, add, jobadd, result, result_date)
+        address = add + ", Barranquilla, Atlántico"
+        addressjob = jobadd + ", Barranquilla, Atlántico"
+        
+        lat_add, lon_add = extract_lat_lng(address)
+        lat_jobadd, lon_jobadd = extract_lat_lng(addressjob)
+        lat_add= str(lat_add)
+        lon_add = str(lon_add)
+        lat_jobadd = str(lat_jobadd)
+        lon_jobadd = str(lon_jobadd)
 
         conn, cur = get_conn()
-        cur=conn.cursor()
-
-        
+        cur=conn.cursor()        
         cur.execute("SELECT cedula FROM covid.registrar WHERE cedula = '"+cc+"';")        
         id = cur.fetchall() # get user from database 
         
@@ -52,21 +84,31 @@ def register():
             cur.execute("SELECT * FROM covid.registrar WHERE cedula = '"+cc+"' AND nombre = '"+name+"' AND apellido = '"+Lname+"' AND sexo = '"+gender+"' AND nacimiento = '"+birth+"';")        
             myresult = cur.fetchall() # get user from database 
             print(myresult)
+            m="5"
+            cur.execute("SELECT est.nmestado FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='"+m+"' and regis.cedula='"+cc+"';")        
+            state = cur.fetchall() # get user from database 
+            print(state[0][0])
             
-            if myresult:
-                
-                cur.execute(f"INSERT INTO covid.registrar (cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (cc, name, Lname, gender, birth, add, jobadd, result, result_date))
+            if myresult and state[0][0] != "Muerte":
+                cur.execute(f"INSERT INTO covid.registrar (latitudCasa, longitudCasa, latitudJob,longitudJob,cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (lat_add,lon_add,lat_jobadd, lon_jobadd,cc, name, Lname, gender, birth, add, jobadd, result, result_date))
                 conn.commit() 
                 cur.close()
                 flash("Case succesfully added")
                 return redirect(url_for('helper.register'))
 
-            else:    
-                flash("User data does not match")
-                cur.close()
-                return redirect(url_for('helper.register'))
+            else:
+                if state[0][0] == "Muerte":
+                    flash("No puede registrar este caso, el usuario murio")
+                    cur.close()
+                    return redirect(url_for('helper.register'))
+                else:
+                    flash("User data does not match")
+                    cur.close()
+                    return redirect(url_for('helper.register'))
+
         else: 
-            cur.execute(f"INSERT INTO covid.registrar (cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)", (cc, name, Lname, gender, birth, add, jobadd, result, result_date))
+            print(lat_add,lon_add,lat_jobadd, lon_jobadd)
+            cur.execute(f"INSERT INTO covid.registrar (cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam, latitudCasa,longitudCasa,latitudJob,longitudJob) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (cc, name, Lname, gender, birth, add, jobadd, result, result_date,lat_add, lon_add, lat_jobadd, lon_jobadd))
             conn.commit() 
             cur.close()
             flash("Case succesfully added")
