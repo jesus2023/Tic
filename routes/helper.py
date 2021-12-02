@@ -3,6 +3,9 @@ from flask import render_template, request, redirect, url_for, flash, session, g
 import pymysql, os
 from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
+from os.path import join, dirname
+load_dotenv(join(dirname(__file__), '.env'))
 
 helper = Blueprint('helper', __name__)
 
