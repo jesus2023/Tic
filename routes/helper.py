@@ -115,9 +115,16 @@ def manage_add():
     if request.method == 'POST':
        
         cedula=request.form['cedula']
+
+        conn, cur = get_conn()
+        cur=conn.cursor()
+
         print(cedula)
+        cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+cedula+"';")        
+        myresult = cur.fetchall()
+        cur.close()
         if cedula:
-            return render_template("Helper_states.html", cedula=cedula)
+            return render_template("Helper_states.html", myresult=myresult)
         else:
             search=request.form['search']
             select=request.form['select']
