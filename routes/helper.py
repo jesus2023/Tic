@@ -8,7 +8,8 @@ from os.path import join, dirname
 load_dotenv(join(dirname(__file__), '.env'))
 
 helper = Blueprint('helper', __name__)
-
+global cedula
+cedula = 1234
 
 def get_conn():
     if "conn" not in g:
@@ -118,8 +119,6 @@ def manage_add():
 
         conn, cur = get_conn()
         cur=conn.cursor()
-
-        print(cedula)
         cur.execute("SELECT regis.idcaso, regis.nombre, regis.apellido, regis.cedula, sex.nmsexo Sexo, regis.nacimiento 'Fecha Nacimiento', regis.dirCasa 'Dirección Casa', regis.dirTrabajo 'Dirección Trabajo', nmresultado 'Resultado Test Covid', regis.fechaExam 'Fecha de Prueba Covid'FROM covid.registrar regis, covid.sexo sex, covid.resultado res WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND regis.cedula = '"+cedula+"';")        
         myresult = cur.fetchall()
         cur.execute(" SELECT gest.fecha 'Fecha Nuevo Ingreso', est.nmestado 'Estado del paciente' FROM covid.registrar regis, covid.sexo sex, covid.resultado res, covid.gestion gest, covid.estado est WHERE regis.sexo = sex.idsexo AND regis.resultado = res.idresultado AND gest.estado= est.idestado AND gest.cedula='"+cedula+"' order by gest.fecha;")        
