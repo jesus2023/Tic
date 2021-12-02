@@ -19,7 +19,6 @@ api=os.getenv('API')
 
 
 def extract_lat_lng(address_or_postalcode, data_type = 'json'):
-    api_key = 'AIzaSyAgSr51cfNOVMywc23zTdnJhB2OrMhivCw'
     endpoint = f"https://maps.googleapis.com/maps/api/geocode/{data_type}"
     params = {"address": address_or_postalcode, "key": api_key}
     url_params = urlencode(params)
