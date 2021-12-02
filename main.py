@@ -3,9 +3,6 @@ import pymysql, os
 from routes.auth import auth
 from routes.admin_ import admin_
 from routes.helper import helper
-from dotenv import load_dotenv
-from os.path import join, dirname
-load_dotenv(join(dirname(__file__), '.env'))
 
 
 
