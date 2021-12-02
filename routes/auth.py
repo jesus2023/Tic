@@ -48,7 +48,7 @@ def login_():
                 return redirect(url_for('admin_.register_'))
 
             elif rol == 'Medico':
-                return redirect(url_for('medico.map'))
+                return redirect(url_for('med.medico_choice'))
 
             elif rol == 'Ayudante':
                 return redirect(url_for('helper.choice'))

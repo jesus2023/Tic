@@ -3,6 +3,8 @@ import pymysql, os
 from routes.auth import auth
 from routes.admin_ import admin_
 from routes.helper import helper
+from routes.med import med
+
 from dotenv import load_dotenv
 from os.path import join, dirname
 load_dotenv(join(dirname(__file__), '.env'))
@@ -151,7 +153,7 @@ def ayudante():
 
 # routes blueprints
 app.register_blueprint(auth)
-#app.register_blueprint(medico)
+app.register_blueprint(med)
 app.register_blueprint(admin_)
 app.register_blueprint(helper)
 
