@@ -2,6 +2,9 @@ from flask import Blueprint
 from flask import render_template, request, redirect, url_for, flash, session, g
 import pymysql, os
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
+from os.path import join, dirname
+load_dotenv(join(dirname(__file__), '.env'))
 
 auth = Blueprint('auth', __name__)
 
