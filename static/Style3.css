@@ -14,3 +14,13 @@ body {
     padding-bottom: 1rem;
     padding-right: 1rem;
   }
+  html {
+    
+ 
+    background-image: url('/static/png/back_covi.jpg');
+   
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
