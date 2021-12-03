@@ -30,6 +30,73 @@ def get_conn():
 
 @app.route('/')
 def index():
+    conn, cur = get_conn()
+    cur=conn.cursor()
+
+#-------------------Gráfica x y--------------------
+    
+    cur.execute("SELECT regis.fechaExam, sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado  group by regis.fechaExam order by regis.fechaExam")        
+    contagiados = cur.fetchall()
+    print(contagiados)
+
+    fecha_contagiados = []
+    print(len(contagiados))
+    """for i in range (len(contagiados)):
+        fecha_contagiados[i-1]=contagiados[0][i]
+
+    print(fecha_contagiados)
+    print(len(contagiados))"""
+
+
+
+    cur.execute("SELECT gest.fecha, sum(CASE WHEN est.idestado = '5' THEN 1 ELSE 0 END) FROM covid.gestion gest, covid.estado est where gest.estado= est.idestado group by gest.fecha order by gest.fecha")        
+    muertes = cur.fetchall()
+    print(muertes)
+
+#------------------Gráficos pie 1---------------------
+
+    cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado ;")        
+    infectados = cur.fetchall()
+    print(infectados)
+
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='5';")        
+    muertos = cur.fetchall()
+    print(muertos)
+
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='4';")        
+    curados = cur.fetchall()
+    print(curados)
+
+#------------------Gráficos pie 2---------------------
+
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='1';")        
+    casa = cur.fetchall()
+    print(casa)
+
+    cur.execute("SELECT count(gest.estado)  FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='2';")        
+    hospital = cur.fetchall()
+    print(hospital)
+
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='3';")        
+    UCI = cur.fetchall()
+    print(UCI)
+
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='5';")        
+    death = cur.fetchall()
+    print(death)
+    
+#------------------Gráficos pie 3---------------------
+
+    cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado  ")        
+    positivos = cur.fetchall()
+    print(positivos)
+
+    cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'negativo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado")        
+    negativos = cur.fetchall()
+    print(negativos)
+
+    cur.close()
+
     return render_template('Principal.html')
 
 @app.route('/rol')
@@ -38,13 +105,13 @@ def rol():
     print(rol)
     return (rol)
 
-"""@app.route('/login')
-def login():
-    return render_template('plogin.html')"""
+@med.route('/lineChar', methods=['POST', 'GET'])
+def line_Chart():
 
-"""@app.route('/register')
-def register():
-    return render_template('pregister.html')"""
+    
+    return render_template("Principal.html")
+
+
 
 #--------------------------------Módulo de administrador-------------------------------------------------------    
 

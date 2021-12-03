@@ -37,15 +37,163 @@
     </div>
   </nav>
   <section>
-
-    <div>
-      <canvas id="myChart"></canvas>
+    <div class="hero-body">
+      <div class="container">
+          <div class="columns">
+              <div class="column">
+                  <div class="box">
+                    
+                        <label class="label is is-size-3" >Casos registrados y muertes</label>
+                        <div>
+                          <canvas id="lineChart" width="1300" height="400"></canvas>
+                        </div>
+                          <script>
+                            var algo = document.getElementById("lineChart").getContext("2d");
+                            var lineChart = new Chart(algo, {
+                            //const labels = Utils.months({count: 7});
+                            //const data = {
+                              type: "line",
+                              data:{
+                                
+                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Amarillo', 'verde'],
+                                datasets: [
+                                {
+                                label: "Datos",
+                                data: [65, 59, 80, 81, 56, 55, 40],
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                                }
+                              ]
+                              }, 
+                              options: {
+                                responsive: false
+                              }
+                            })
+                          </script>
+                        
+                    
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                  <label class="label is is-size-3" >Casos totales</label>
+                  <div>
+                    <canvas id="pie" width="400" height="400"></canvas>
+                  </div>
+                    <script>
+                      var algo = document.getElementById("pie").getContext("2d");
+                      var pie = new Chart(algo, {
+                     
+                        type: "pie",
+                        data:{
+                          labels: [
+                            'Red',
+                            'Blue',
+                            'Yellow'
+                          ],
+                          datasets: [{
+                            label: 'My First Dataset',
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                              'rgb(255, 99, 132)',
+                              'rgb(54, 162, 235)',
+                              'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                          }]
+                        }, 
+                        options: {
+                          responsive: false
+                        }
+                      })
+                    </script>
+                  
+                </div>  
+            </div>
+            <div class="column">
+                <div class="box">
+                  <label class="label is is-size-3" >Infectados</label>
+                  <div>
+                    <canvas id="pie2" width="400" height="400"></canvas>
+                  </div>
+                    <script>
+                      var algo = document.getElementById("pie2").getContext("2d");
+                      var pie2 = new Chart(algo, {
+                     
+                        type: "pie",
+                        data:{
+                          labels: [
+                            'Red',
+                            'Blue',
+                            'Yellow'
+                          ],
+                          datasets: [{
+                            label: 'My First Dataset',
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                              'rgb(255, 99, 132)',
+                              'rgb(54, 162, 235)',
+                              'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                          }]
+                        }, 
+                        options: {
+                          responsive: false
+                        }
+                      })
+                    </script>
+                  
+                </div>
+            </div>
+            <div class="column">
+              <div class="box">
+                <label class="label is is-size-3" >Resultados</label>
+                  <div>
+                    <canvas id="pie3" width="400" height="400"></canvas>
+                  </div>
+                    <script>
+                      var algo = document.getElementById("pie3").getContext("2d");
+                      var pie3 = new Chart(algo, {
+                     
+                        type: "pie",
+                        data:{
+                          labels: [
+                            'Red',
+                            'Blue',
+                            'Yellow'
+                          ],
+                          datasets: [{
+                            label: 'My First Dataset',
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                              'rgb(255, 99, 132)',
+                              'rgb(54, 162, 235)',
+                              'rgb(255, 205, 86)'
+                            ],
+                            hoverOffset: 4
+                          }]
+                        }, 
+                        options: {
+                          responsive: false
+                        }
+                      })
+                    </script>
+                  
+              </div>  
+          </div>
+          </div>
     </div>
-
+  </div>
     <div class="hero-foot">
       <div class="container has-text-centered">
           <p class="footer-text">
-              <a  style="color:rgb(9, 199, 25);">Designed<!--<i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>-->
+              <a  style="color:black;">Designed<!--<i class="fa fa-heart fa-fw" style="font-size: 10px; color: red;"></i>-->
               by Sebastian Romero, Daritza Teherán, Diana Martínez, Natalia Castillo</a>
           </p>
       </div>
@@ -53,44 +201,5 @@
 </section>
 <script src="../static/js/delete.js"></script>
 
-<script>
-const ctx = document.getElementById('myChart');
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgb(163, 6, 6)',
-                'rgb(9, 199, 25)',
-                'rgb(163, 6, 6)',
-                'rgb(9, 199, 25)',
-                'rgb(9, 199, 25)',
-                'rgb(9, 199, 25)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-
-
-</script>
-  </body>
+</body>
 </html>
