@@ -50,7 +50,10 @@
                     </div>
                 </nav>
             </div>
-            <input class="input" type="hidden" placeholder="" name="cedulas" id="cedulas" value={{cedulas}} required>
+            {% for cell in cedulas %}
+            <input class="input" type="hidden" name="cedulas" id={{cell}}>
+            {% endfor %}
+
             <div class="hero-body">
                 <div class="container">
                     <div class="columns">

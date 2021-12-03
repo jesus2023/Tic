@@ -80,14 +80,12 @@ def medico_search():
 
 @med.route('/medico/mapa', methods=['POST', 'GET'])
 def medico_mapa():
-    
     conn, cur = get_conn()
     cur=conn.cursor()
     cur.execute("SELECT DISTINCT regis.cedula FROM covid.registrar regis;")        
     myresult = cur.fetchall()
 
     cedulas = []
-    
     for i in range (len(myresult)):
         cedula = str(myresult[i][0])
         cedulas.append(cedula)
@@ -97,25 +95,6 @@ def medico_mapa():
     cur.close()   
     return render_template("doc_generalmap.html", cedulas = cedulas)
 
-@med.route('/mapa_general', methods=['POST', 'GET'])
-def mapa_general():
-
-    conn, cur = get_conn()
-    cur=conn.cursor()
-    cur.execute("SELECT DISTINCT regis.cedula FROM covid.registrar regis;")        
-    myresult = cur.fetchall()
-
-    cedulas = []
-    
-    for i in range (len(myresult)):
-        cedula = str(myresult[i][0])
-        cedulas.append(cedula)
-        
-    print(cedulas)
-
-    cur.close()
-    return jsonify(cedulas)
-
 @med.route('/mapa_general_casos', methods=['POST', 'GET'])
 def mapa_general_casos():
 
@@ -123,10 +102,21 @@ def mapa_general_casos():
 
     conn, cur = get_conn()
     cur=conn.cursor()
-    cur.execute("SELECT regis.cedula, regis.latitudCasa, regis.longitudCasa, resul.nmresultado FROM covid.registrar regis, covid.resultado resul where regis.cedula='"+cedula+"' and regis.resultado=resul.idresultado and regis.idCaso = (select MAX(idCaso) FROM covid.registrar regis where regis.cedula='"+cedula+"')")               
+    cur.execute("SELECT regis.latitudCasa, regis.longitudCasa, resul.nmresultado FROM covid.registrar regis, covid.resultado resul where regis.cedula='"+cedula+"' and regis.resultado=resul.idresultado and regis.idCaso = (select MAX(idCaso) FROM covid.registrar regis where regis.cedula='"+cedula+"')")               
     myresult = cur.fetchall()
+    
 
-    print(myresult[0][3])
-
-    cur.close()
-    return jsonify(myresult)
+    if myresult[0][2]=="Negativo":
+        cur.close()
+        return jsonify(myresult)
+    else:
+        cur.execute("SELECT regis.latitudCasa, regis.longitudCasa, est.nmestado FROM covid.registrar regis, covid.resultado resul, covid.gestion gest, covid.estado est where regis.cedula='"+cedula+"' and regis.resultado=resul.idresultado and regis.cedula=gest.cedula  and regis.idcaso=gest.idcaso and gest.estado=est.idestado and regis.idCaso = (select MAX(regis.idCaso) FROM covid.registrar regis where regis.cedula='"+cedula+"') and est.nmestado = (select est.nmestado FROM covid.estado est, covid.gestion gest, covid.registrar regis where gest.estado=est.idestado  and regis.cedula=gest.cedula  and gest.fecha =(select max(gest.fecha) from covid.gestion gest, covid.registrar regis where regis.cedula='"+cedula+"' and gest.cedula=regis.cedula) and regis.idcaso=gest.idcaso and regis.cedula='"+cedula+"' limit 1)")
+        myresult = cur.fetchall()
+        if myresult:
+            cur.close()
+            return jsonify(myresult)
+        else:
+            cur.execute("SELECT regis.latitudCasa, regis.longitudCasa, resul.nmresultado FROM covid.registrar regis, covid.resultado resul where regis.cedula='"+cedula+"' and regis.resultado=resul.idresultado and regis.idCaso = (select MAX(idCaso) FROM covid.registrar regis where regis.cedula='"+cedula+"')")               
+            myresult = cur.fetchall()
+            cur.close()
+            return jsonify(myresult)
