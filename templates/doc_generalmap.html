@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
-    <link rel="stylesheet" href="Style.css" />
+    <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
   </head>
   <body>
 <section class="hero">
@@ -19,7 +22,7 @@
                 <nav class="navbar navbar-default" style="background-color: #e6f9ff" role="navigation">
                     <div class="navbar-brand">
                     
-                        <img src="Logo2.png"  width="200" height="30" style="margin-left: 10px;" >
+                        <img src="/static/png/Logo2.png"  width="200" height="30" style="margin-left: 10px;" >
                     
                         <div class="navbar-burger" aria-level="menu" aria-expanded="false" data-target="navbarExample">
                             <span aria-hidden="true"></span>
@@ -47,6 +50,7 @@
                     </div>
                 </nav>
             </div>
+            <input class="input" type="hidden" placeholder="" name="cedulas" id="cedulas" value={{cedulas}} required>
             <div class="hero-body">
                 <div class="container">
                     <div class="columns">
@@ -54,7 +58,7 @@
                             <div class="box">
                               
                                   <label class="label is is-size-3" >Mapa General</label>
-                                  <img src="BQuilla.png"  width="1000" height="500" style="margin-left: 10px">
+                                  <div id="CovidMap" class="mapa"></div>
                               
                             </div>
                         </div>
@@ -71,6 +75,12 @@
               </div>
            </div>
      </section>-->
-  <script src="../static/js/delete.js"></script>   
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+    </script>
+  <script src="/static/js/delete.js"></script> 
+  <script src="/static/js/mapageneral.js"></script>  
   </body>
 </html>

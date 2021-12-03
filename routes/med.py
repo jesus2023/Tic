@@ -77,3 +77,56 @@ def medico_search():
 
     else:
         return render_template("docsearch.html")
+
+@med.route('/medico/mapa', methods=['POST', 'GET'])
+def medico_mapa():
+    
+    conn, cur = get_conn()
+    cur=conn.cursor()
+    cur.execute("SELECT DISTINCT regis.cedula FROM covid.registrar regis;")        
+    myresult = cur.fetchall()
+
+    cedulas = []
+    
+    for i in range (len(myresult)):
+        cedula = str(myresult[i][0])
+        cedulas.append(cedula)
+        
+    print(cedulas)
+
+    cur.close()   
+    return render_template("doc_generalmap.html", cedulas = cedulas)
+
+@med.route('/mapa_general', methods=['POST', 'GET'])
+def mapa_general():
+
+    conn, cur = get_conn()
+    cur=conn.cursor()
+    cur.execute("SELECT DISTINCT regis.cedula FROM covid.registrar regis;")        
+    myresult = cur.fetchall()
+
+    cedulas = []
+    
+    for i in range (len(myresult)):
+        cedula = str(myresult[i][0])
+        cedulas.append(cedula)
+        
+    print(cedulas)
+
+    cur.close()
+    return jsonify(cedulas)
+
+@med.route('/mapa_general_casos', methods=['POST', 'GET'])
+def mapa_general_casos():
+
+    cedula = request.args.get("param1")
+
+    conn, cur = get_conn()
+    cur=conn.cursor()
+    cur.execute("SELECT regis.cedula, regis.latitudCasa, regis.longitudCasa, resul.nmresultado FROM covid.registrar regis, covid.resultado resul where regis.cedula='"+cedula+"' and regis.resultado=resul.idresultado and regis.idCaso = (select MAX(idCaso) FROM covid.registrar regis where regis.cedula='"+cedula+"')")               
+    myresult = cur.fetchall()
+
+    print(myresult[0][3])
+
+    cur.close()
+    return jsonify(myresult)
