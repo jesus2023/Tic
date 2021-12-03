@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, g
+from flask import Flask, render_template, request, session, g, jsonify
 import pymysql, os
 from routes.auth import auth
 from routes.admin_ import admin_
@@ -28,6 +28,71 @@ def get_conn():
         g.cur=g.conn.cursor()
     return g.conn, g.cur
 
+
+@app.route('/api/data')
+def test():
+    conn, cur = get_conn()
+    cur=conn.cursor()
+
+#-------------------Gráfica x y--------------------
+    
+    cur.execute("SELECT regis.fechaExam, sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado  group by regis.fechaExam order by regis.fechaExam")        
+    contagiados = cur.fetchall()
+    cur.execute("SELECT gest.fecha, sum(CASE WHEN est.idestado = '5' THEN 1 ELSE 0 END) FROM covid.gestion gest, covid.estado est where gest.estado= est.idestado group by gest.fecha order by gest.fecha")        
+    muertes = cur.fetchall()
+    
+    data_fecha_c = []
+    for i in range(len(contagiados)):
+        data_fecha_c.append(contagiados[i][0].strftime("%d/%m/%y"))
+    
+    data_c = []
+    for i in range(len(contagiados)):
+        data_c.append(contagiados[i][1])
+    
+    data_fecha_m = []
+    for i in range(len(muertes)):
+        data_fecha_m.append(muertes[i][0].strftime("%d/%m/%y"))
+    
+    data_m = []
+    for i in range(len(muertes)):
+        data_m.append(muertes[i][1])
+
+#------------------Gráficos pie 1---------------------
+
+    cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado ;")        
+    n_infectados = cur.fetchall()
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='5';")        
+    n_muertos = cur.fetchall()
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='4';")        
+    n_curados = cur.fetchall()
+
+#------------------Gráficos pie 2---------------------
+
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='1';")        
+    n_ = cur.fetchall()
+    cur.execute("SELECT count(gest.estado)  FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='2';")        
+    n_hospital = cur.fetchall()
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='3';")        
+    n_UCI = cur.fetchall()
+    cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='5';")        
+    n_death = cur.fetchall()
+    
+#------------------Gráficos pie 3---------------------
+
+    cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado  ")        
+    n_positivos = cur.fetchall()
+    cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'negativo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado")        
+    n_negativos = cur.fetchall()
+
+    cur.close()
+    
+    
+    
+    return jsonify(data_fecha_c, data_c ,data_fecha_m , data_m, 
+                n_infectados,n_curados,n_muertos, 
+                n_negativos,n_positivos,
+                n_death,n_UCI,n_hospital,n_)
+
 @app.route('/')
 def index():
     conn, cur = get_conn()
@@ -37,67 +102,56 @@ def index():
     
     cur.execute("SELECT regis.fechaExam, sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado  group by regis.fechaExam order by regis.fechaExam")        
     contagiados = cur.fetchall()
-    print(contagiados)
-
-    fecha_contagiados = []
-    print(len(contagiados))
-    """for i in range (len(contagiados)):
-        fecha_contagiados[i-1]=contagiados[0][i]
-
-    print(fecha_contagiados)
-    print(len(contagiados))"""
-
-
-
     cur.execute("SELECT gest.fecha, sum(CASE WHEN est.idestado = '5' THEN 1 ELSE 0 END) FROM covid.gestion gest, covid.estado est where gest.estado= est.idestado group by gest.fecha order by gest.fecha")        
     muertes = cur.fetchall()
-    print(muertes)
+    
+    data_fecha_c = []
+    for i in range(len(contagiados)):
+        data_fecha_c.append(contagiados[i][0].strftime("%d/%m/%y"))
+    
+    data_c = []
+    for i in range(len(contagiados)):
+        data_c.append(contagiados[i][1])
+    
+    data_fecha_m = []
+    for i in range(len(muertes)):
+        data_fecha_m.append(muertes[i][0].strftime("%d/%m/%y"))
+    
+    data_m = []
+    for i in range(len(muertes)):
+        data_m.append(muertes[i][1])
 
 #------------------Gráficos pie 1---------------------
 
     cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado ;")        
-    infectados = cur.fetchall()
-    print(infectados)
-
+    n_infectados = cur.fetchall()
     cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='5';")        
-    muertos = cur.fetchall()
-    print(muertos)
-
+    n_muertos = cur.fetchall()
     cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='4';")        
-    curados = cur.fetchall()
-    print(curados)
+    n_curados = cur.fetchall()
 
 #------------------Gráficos pie 2---------------------
 
     cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='1';")        
-    casa = cur.fetchall()
-    print(casa)
-
+    n_casa = cur.fetchall()
     cur.execute("SELECT count(gest.estado)  FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='2';")        
-    hospital = cur.fetchall()
-    print(hospital)
-
+    n_hospital = cur.fetchall()
     cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='3';")        
-    UCI = cur.fetchall()
-    print(UCI)
-
+    n_UCI = cur.fetchall()
     cur.execute("SELECT count(gest.estado) FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='5';")        
-    death = cur.fetchall()
-    print(death)
+    n_death = cur.fetchall()
     
 #------------------Gráficos pie 3---------------------
 
     cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'positivo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado  ")        
-    positivos = cur.fetchall()
-    print(positivos)
-
+    n_positivos = cur.fetchall()
     cur.execute("SELECT sum(CASE WHEN resul.nmresultado = 'negativo' THEN 1 ELSE 0 END) FROM covid.registrar regis, covid.resultado resul where resul.idresultado= regis.resultado")        
-    negativos = cur.fetchall()
-    print(negativos)
+    n_negativos = cur.fetchall()
 
     cur.close()
+    print(data_fecha_m, data_fecha_c)
 
-    return render_template('Principal.html')
+    return render_template('Principal.html', df=data_fecha_c, dc=data_c)
 
 @app.route('/rol')
 def rol():
