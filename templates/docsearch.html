@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" />
     <link rel="stylesheet" href="/static/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
   </head>
   <body>
    
@@ -64,7 +67,9 @@
         <div class="hero-body">
             <div class="container">
                
-                
+                <input class="input" type="hidden" placeholder="" name="buscar" id="buscar" value={{cedula}} required>
+                <input class="input" type="hidden" placeholder="" name="estado" id="estado" value={{estado}} required>
+
                 <div class="columns">   
                    <div class="column is-3">
                         <div class="box">
@@ -97,7 +102,7 @@
                                     </p>
                                 </div>
                                 <p class="control"> 
-                                    <input type="submit" value="Buscar" class="button has-text-weight-bold has-text-white is-medium " style="background-color: #003399">
+                                    <input type="submit" value="Buscar" class="button has-text-weight-bold has-text-white is-medium " id="buscar" style="background-color: #003399">
                                 </p><br>
                              </form>     
                         </div>
@@ -110,7 +115,7 @@
                                 <table class="table is is-halfwidth">
                                   <thead >
                                     <tr>
-                                      
+                                      <th>IdCaso</th>
                                       <th>Fecha de Ingreso</th>
                                       <th>Estado del paciente</th>
                                       
@@ -120,10 +125,12 @@
                                   
                                   <tbody>
                                     <tr>
-                                     <!-- <th></th>-->
-                                      <td>28-11-2021</td>
-                                      <td>Muerte</td>
-                                     
+                                        {% for row in result %}
+                                        <tbody>
+                                            {% for cell in row %}
+                                            <td>{{cell}}</td>
+                                            {% endfor %}
+                                            {% endfor %}
                                     </tr>
                                     <tr>
 
@@ -172,11 +179,11 @@
                  <div class="columns">
                      <div class="column">
                          <div class="box">
-                            <img src="BQuilla.png"  width="1000" height="500" style="margin-left: 10px">
+                            <div id="CovidMap" class="mapa"></div>
                          </div>
                      </div>
                  </div>
-
+            
             </div>
         </div>
         
@@ -197,7 +204,11 @@
                 };
             </script>
             <script src="../static/js/delete.js"></script>  -->
-        
-    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+    </script>
+    <script src="/static/js/map.js"></script>
+
   </body>
 </html>
