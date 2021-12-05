@@ -23,7 +23,7 @@ http.onreadystatechange = () => {
           ]
           }, 
           options: {
-            responsive: false
+            responsive: true
           }})
           
 
@@ -45,7 +45,7 @@ http.onreadystatechange = () => {
             ]
             }, 
             options: {
-              responsive: false
+              responsive: true
             }})
 
           var algo = document.getElementById("pie").getContext("2d");
@@ -70,7 +70,7 @@ http.onreadystatechange = () => {
               }]
             }, 
             options: {
-              responsive: false
+              responsive: true
             }
           })
 
@@ -98,7 +98,7 @@ http.onreadystatechange = () => {
               }]
             }, 
             options: {
-              responsive: false
+              responsive: true
             }
           })
 
@@ -122,7 +122,7 @@ http.onreadystatechange = () => {
               }]
             }, 
             options: {
-              responsive: false
+              responsive: true
             }
           })
 
