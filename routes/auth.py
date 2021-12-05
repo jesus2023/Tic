@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import render_template, request, redirect, url_for, flash, session, g
 import pymysql, os
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from dotenv import load_dotenv
 from os.path import join, dirname
 load_dotenv(join(dirname(__file__), '.env'))
@@ -37,8 +37,7 @@ def login_():
         if myresult:
             pw=myresult[0][0]
             rol=myresult[0][1]
-        #check_password_hash(pw, request.form['password'])
-        
+      
         # check if user exists and password is correct
         if username and check_password_hash(pw, request.form['password']):
 

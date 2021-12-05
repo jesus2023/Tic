@@ -83,11 +83,10 @@ def register():
             
             cur.execute("SELECT * FROM covid.registrar WHERE cedula = '"+cc+"' AND nombre = '"+name+"' AND apellido = '"+Lname+"' AND sexo = '"+gender+"' AND nacimiento = '"+birth+"';")        
             myresult = cur.fetchall() # get user from database 
-            print(myresult)
+           
             m="5"
             cur.execute("SELECT est.nmestado FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and gest.idcaso=regis.idcaso and gest.estado='"+m+"' and regis.cedula='"+cc+"';")        
             state = cur.fetchall() # get user from database 
-            print(state[0][0])
             
             if myresult and state[0][0] != "Muerte":
                 cur.execute(f"INSERT INTO covid.registrar (latitudCasa, longitudCasa, latitudJob,longitudJob,cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (lat_add,lon_add,lat_jobadd, lon_jobadd,cc, name, Lname, gender, birth, add, jobadd, result, result_date))
@@ -107,7 +106,6 @@ def register():
                     return redirect(url_for('helper.register'))
 
         else: 
-            print(lat_add,lon_add,lat_jobadd, lon_jobadd)
             cur.execute(f"INSERT INTO covid.registrar (cedula, nombre, apellido, sexo, nacimiento, dirCasa, dirTrabajo, resultado, fechaExam, latitudCasa,longitudCasa,latitudJob,longitudJob) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", (cc, name, Lname, gender, birth, add, jobadd, result, result_date,lat_add, lon_add, lat_jobadd, lon_jobadd))
             conn.commit() 
             cur.close()
@@ -120,10 +118,7 @@ def register():
 @helper.route('/ayudante/manage', methods=['POST', 'GET'])
 def manage():
     if request.method == 'POST':
-        print("")
-
         search=request.form['search']
-        print(search)
         select=request.form['select']
         conn, cur = get_conn()
         cur=conn.cursor()
@@ -163,7 +158,6 @@ def manage_add():
         myresult = cur.fetchall()
         cur.execute("SELECT regis.idcaso, gest.fecha 'Fecha Nuevo Ingreso', est.nmestado 'Estado del paciente' FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and regis.cedula='"+cedula+"' and gest.idcaso=regis.idcaso  order by gest.fecha;")        
         result = cur.fetchall()
-        print(result)
 
         if result:
             estado=result[len(result)-1][2]

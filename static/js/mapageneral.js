@@ -43,7 +43,6 @@ tiles.addTo(mymap);
 
 var cedulas
 cedulas = document.getElementsByName("cedulas")
-console.log(cedulas)
 var markers = new Object();
 
 
@@ -53,35 +52,26 @@ cedulas.forEach((cedula) =>{
         httpc.open('GET', "/mapa_general_casos?param1=" + cedula.id)
         httpc.onreadystatechange = function () {
             if (httpc.readyState == 4 && httpc.status == 200) {
-                var coords = JSON.parse(httpc.responseText);
-                console.log(coords[0][2])
-                
+                var coords = JSON.parse(httpc.responseText);                
                 if (coords[0][2]=="Negativo"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: negativo }).addTo(mymap).bindPopup(cedula.id+" - Negativo")
                 }
                 if (coords[0][2]=="Muerte"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: muerto }).addTo(mymap).bindPopup(cedula.id+" - Fallecido")
                 }
                 if (coords[0][2]=="Curado"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: curado }).addTo(mymap).bindPopup(cedula.id+" - Curado")
                 }
                 if (coords[0][2]=="En UCI"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: uci }).addTo(mymap).bindPopup(cedula.id+" - En UCI")
                 }
                 if (coords[0][2]=="En Tratamiento Casa"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: tratamiento }).addTo(mymap).bindPopup(cedula.id+" - En tratamiento casa")
                 }
                 if (coords[0][2]=="En tratamiento Hospital"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: tratamiento }).addTo(mymap).bindPopup(cedula.id+" - En tratamiento Hospital")
                 }
                 if (coords[0][2]=="Positivo"){
-                    console.log(coords[2])
                     markers[cedula]=L.marker([coords[0][0], coords[0][1]], { icon: tratamiento }).addTo(mymap).bindPopup(cedula.id+" - Positivo")
                 }
                 

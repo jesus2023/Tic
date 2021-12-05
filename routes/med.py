@@ -64,7 +64,6 @@ def medico_search():
                 result = cur.fetchall()
                 cur.execute("SELECT regis.idcaso, gest.fecha 'Fecha Nuevo Ingreso', est.nmestado 'Estado del paciente' FROM covid.registrar regis, covid.gestion gest, covid.estado est WHERE gest.estado= est.idestado and regis.cedula='"+cedula+"' and gest.idcaso=regis.idcaso  order by gest.fecha;")        
                 result = cur.fetchall()
-                print(result)
                 if result:
                     estado=result[len(result)-1][2]
                 else:
@@ -89,8 +88,6 @@ def medico_mapa():
     for i in range (len(myresult)):
         cedula = str(myresult[i][0])
         cedulas.append(cedula)
-        
-    print(cedulas)
 
     cur.close()   
     return render_template("doc_generalmap.html", cedulas = cedulas)

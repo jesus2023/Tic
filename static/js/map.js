@@ -15,16 +15,12 @@ var search, estado
 search = document.getElementById('buscar').value 
 estado = document.getElementById('estado').value 
 
-console.log(search, estado)
-
 
 const http = new XMLHttpRequest() // metodo de javascript, para hacer peticiones a una url
     http.open('GET', "/ubic?param1=" + search)
     http.onreadystatechange = () => {
         if (http.readyState == 4 && http.status == 200) {
             var coords = JSON.parse(http.responseText);
-            console.log(coords[0][0])
-
             casa = L.marker([coords[0][2], coords[0][3]], { icon: customIcon }).addTo(mymap).bindPopup('Trabajo').openPopup();
             trabajo = L.marker([coords[0][0], coords[0][1]], { icon: customIcon }).addTo(mymap).bindPopup('Casa').openPopup();
 
